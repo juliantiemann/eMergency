@@ -438,9 +438,26 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    // Deploy
+    'gh-pages': {
+      options: {
+        // Options for all targets go here.
+      },
+      'gh-pages': {
+        options: {
+          base: '/'
+        },
+        // These files will get pushed to the `gh-pages` branch (the default).
+        src: [
+          '**/*'
+        ]
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-gh-pages');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -493,5 +510,10 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'build',
+    'gh-pages'
   ]);
 };
