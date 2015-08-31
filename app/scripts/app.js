@@ -33,4 +33,8 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .run(function($rootScope) {
+    $rootScope.DB = new DB.EntityManagerFactory("https://julian.baqend.com");
+    $rootScope.DB = $rootScope.DB.createEntityManager();
   });
