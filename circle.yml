@@ -5,4 +5,4 @@ deployment:
   live:
     branch: master
     commands:
-      - sudo grunt deploy;
+      - chmod -R 777 .grunt; grunt deploy;
