@@ -48,7 +48,11 @@
     </div>
 
     <div class="container">
-    <div ng-view=""></div>
+      <div id="hello"></div>
+    </div>
+
+    <div class="container">
+      <div ng-view=""></div>
     </div>
 
     <div class="footer">
@@ -69,6 +73,7 @@
        ga('send', 'pageview');
     </script>
 
+    <script type="text/javascript" src="http://baqend.com/js-sdk/latest/baqend.min.js"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -88,6 +93,7 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/db/db.js"></script> 
         <!-- endbuild -->
 </body>
 </html>
