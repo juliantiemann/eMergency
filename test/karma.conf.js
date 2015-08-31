@@ -21,6 +21,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'http://baqend.com/js-sdk/latest/baqend.min.js',
       // bower:js
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
@@ -40,9 +41,7 @@ module.exports = function(config) {
     ],
 
     // list of files / patterns to exclude
-    exclude: [
-      "app/scripts/db/*.js",
-    ],
+    exclude: [],
 
     // web server port
     port: 8080,
