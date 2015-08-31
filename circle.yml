@@ -5,4 +5,4 @@ deployment:
   live:
     branch: master
     commands:
-      - grunt deploy;
+      - sudo grunt deploy;
