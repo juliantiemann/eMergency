@@ -11,8 +11,20 @@ describe('Service: eventService', function () {
     eventService = _eventService_;
   }));
 
-  it('should do something', function () {
-    expect(!!eventService).toBe(true);
+  it('should persist a new event in the database', function () {
+    var test = this;
+    var persistentEvent;
+    eventService.add({})
+      .then(
+        function(response) {
+          persistentEvent = response;
+          persistentEvent.delete();
+          test.success();
+        },
+        function(error) {
+          test.fail();
+        }
+      );
   });
 
 });
