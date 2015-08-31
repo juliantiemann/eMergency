@@ -1,8 +1,8 @@
 dependencies:
   pre:
-    - bower install; gem install compass;
+    - git status; bower install; gem install compass;
 deployment:
   live:
     branch: master
     commands:
-      - chmod -R 777 .grunt; grunt deploy;
+      - grunt deploy;
