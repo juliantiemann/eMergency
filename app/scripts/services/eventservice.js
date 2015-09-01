@@ -4,7 +4,7 @@
  * @ngdoc service
  * @name eMergencyApp.eventService
  * @description
- * # eventService
+ * # eventService with baqend
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
