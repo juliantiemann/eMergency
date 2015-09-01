@@ -6,15 +6,7 @@
 </div>
 
 <div class="location">
-      <div class="row" ng-show="showResult()">
-         <p>Latitude: {{lat}}</p>
-         <p>Longitude: {{lng}}</p>
-         <p>Accuracy: {{accuracy}}</p>
-      </div>
-      <div class="row" ng-show="!showResult()">
-          <p>Error : {{error}}</p>
-          <p>Error Code: {{error.code}}</p>
-      </div>
+      <p>Position: {{coords}}</p>
 </div>
 
 <div class="row marketing">

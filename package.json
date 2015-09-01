@@ -32,7 +32,7 @@
     "time-grunt": "^1.0.0",
     "grunt-gh-pages": "*",
     "grunt-build-gh-pages": "*",
-	"baqend": "0.9.5"
+	  "baqend": "0.9.5"
   },
   "engines": {
     "node": ">=0.10.0"
