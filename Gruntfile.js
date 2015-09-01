@@ -530,6 +530,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy', [
     'build',
-    'buildGhPages'
+    'gh-pages'
   ]);
 };
