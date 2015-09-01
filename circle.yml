@@ -1,8 +1,8 @@
 dependencies:
   pre:
-    - git status; bower install; gem install compass;
+    - bower install; gem install compass;
 deployment:
   live:
     branch: master
     commands:
-      - npm install -g grunt-cli; npm install; grunt deploy;
+      - grunt deploy;
