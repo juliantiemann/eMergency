@@ -454,10 +454,26 @@ module.exports = function (grunt) {
           '**/*'
         ]
       }
+    },
+    buildGhPages: {
+      ghPages: {
+        // Leave empty if you just want to run the defaults
+      },
+      production: {
+        options: {
+          build_branch: "gh-pages",
+          dist: "dist",
+          exclude: [
+            '.tmp',
+            '.sass-cache'
+          ]
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-build-gh-pages');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
