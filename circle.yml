@@ -5,4 +5,4 @@ deployment:
   live:
     branch: master
     commands:
-      - npm install -g grunt-cli; npm-install; grunt deploy;
+      - npm install -g grunt-cli; npm install; grunt deploy;
