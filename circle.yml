@@ -1,0 +1,8 @@
+dependencies:
+  pre:
+    - bower install; gem install compass;
+deployment:
+  live:
+    branch: master
+    commands:
+      - grunt deploy;
