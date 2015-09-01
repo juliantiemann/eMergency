@@ -462,7 +462,11 @@ module.exports = function (grunt) {
       production: {
         options: {
           build_branch: "gh-pages",
-          dist: "dist"
+          dist: "dist",
+          exclude: [
+            '.tmp',
+            '.sass-cache'
+          ]
         }
       }
     }
