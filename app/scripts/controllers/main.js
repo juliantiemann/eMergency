@@ -8,7 +8,7 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('MainCtrl', function ($scope, eventService, geolocation) {
+  .controller('MainCtrl', function ($scope, eventService, geoLocService) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -34,10 +34,12 @@ angular.module('eMergencyApp')
       });
 
     $scope.coords = {};
-    geolocation.getLocation().then(function(data){
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-    }, function(error){
-      $scope.coords = error;
-    });
+    geoLocService.getLocation()
+      .then(function(location) {
+        $scope.coords = location
+      }, function(error) {
+          console.log(error);
+      });
+
 
   });
