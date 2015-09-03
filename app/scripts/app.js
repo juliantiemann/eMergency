@@ -16,9 +16,11 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'geolocation',
+    'LocalStorageModule'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, localStorageServiceProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -33,6 +35,10 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+    localStorageServiceProvider
+      .setPrefix('eMergencyApp')
+      .setStorageType('localStorage')
+      .setNotify(true, true)
   })
   .run(function($rootScope) {
     $rootScope.DB = new DB.EntityManagerFactory("https://julian.baqend.com");
