@@ -8,22 +8,25 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('geoLocService', function (geolocation, $localStorage) {
+  .service('geoLocService', function (geolocation, localStorageService) {
     return{
       getLocation: function() {
         var timestamp = new Date();
         return geolocation.getLocation().then(function(data){
-          $localStorage.$location = {
+          var location = {
             lat:data.coords.latitude,
             long:data.coords.longitude,
             time: timestamp
           };
-          debugger
-          return $localStorage.$location;
+          localStorageService.set('geoLoc', location);
+          return location;
         }, function(error){
           debugger
-          if((timestamp - $localStorage.$location.time) < 900000){
-            return $localStorage.$location;
+          var location = localStorageService.get('geoLoc');
+          var time = new Date(location.time);
+          if((timestamp - time) < 900000){
+            debugger
+            return location;
           }
           else {
             return error;
