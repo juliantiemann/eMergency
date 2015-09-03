@@ -3,6 +3,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -38,6 +42,7 @@ body {
 
 /* Custom page footer */
 .footer {
+  margin-top: 10px;
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;

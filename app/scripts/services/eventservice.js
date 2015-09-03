@@ -16,15 +16,18 @@ angular.module('eMergencyApp')
        */
       all: function() {
         return $q(function(resolve, reject) {
-          $db.Event.find().resultList()
-            .then(
-              function(response) {
-                resolve(response);
-              },
-              function(response) {
-                reject(response);
-              }
-            )
+          $db.ready()
+            .then(function() {
+              $db.Event.find().resultList()
+                .then(
+                  function(response) {
+                    resolve(response);
+                  },
+                  function(response) {
+                    reject(response);
+                  }
+                );
+              });
         });
       },
       /**
@@ -66,11 +69,14 @@ angular.module('eMergencyApp')
        */
       subscribe: function(callback) {
         var handler = $rootScope.$on('notifying-service-event', callback);
-        var stream = $db.Event.find().stream(false);
-        stream.on("all", function(e) {
-          $rootScope.$emit('notifying-service-event', e.data);
-          $rootScope.$apply();
-        });
+        $db.ready()
+          .then(function() {
+            var stream = $db.Event.find().stream(false);
+            stream.on("all", function(e) {
+              $rootScope.$emit('notifying-service-event', e.data);
+              $rootScope.$apply();
+            });
+          });
       }
     };
   });
