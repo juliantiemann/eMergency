@@ -36,8 +36,8 @@ angular
         redirectTo: '/'
       });
     localStorageServiceProvider
-      .setPrefix('myApp')
-      .setStorageType('sessionStorage')
+      .setPrefix('eMergencyApp')
+      .setStorageType('localStorage')
       .setNotify(true, true)
   })
   .run(function($rootScope) {

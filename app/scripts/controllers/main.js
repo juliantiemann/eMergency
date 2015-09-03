@@ -34,7 +34,7 @@ angular.module('eMergencyApp')
       });
 
     $scope.coords = {};
-    geoLocService.getLocation()
+    geoLocService.get()
       .then(function(location) {
         $scope.coords = location
       }, function(error) {
