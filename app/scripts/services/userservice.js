@@ -16,14 +16,11 @@ angular.module('eMergencyApp')
        */
       getCurrentUser: function() {
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
-            .then(function() {
-              if($rootScope.DB.User.me) {
-                resolve($rootScope.DB.User.me);
-              } else {
-                reject({});
-              }
-            });
+          if($db.User.me) {
+            resolve($db.User.me);
+          } else {
+            reject({});
+          }
         });
       },
       /**
@@ -34,18 +31,15 @@ angular.module('eMergencyApp')
        */
       register: function(newUser, password) {
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
-            .then(function() {
-              $rootScope.DB.User.register(newUser, password)
-                .then(
-                  function() {
-                    resolve($rootScope.DB.User.me);
-                  },
-                  function() {
-                    reject({});
-                  }
-                );
-            });
+          $db.User.register(newUser, password)
+            .then(
+              function() {
+                resolve($db.User.me);
+              },
+              function() {
+                reject({});
+              }
+            );
         });
       },
       /**
@@ -56,18 +50,15 @@ angular.module('eMergencyApp')
        */
       login: function(user, password) {
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
-            .then(function() {
-              $rootScope.DB.User.login(user, password)
-                .then(
-                  function(success) {
-                    resolve(success);
-                  },
-                  function(error) {
-                    reject(error);
-                  }
-                );
-            });
+          $db.User.login(user, password)
+            .then(
+              function(success) {
+                resolve(success);
+              },
+              function(error) {
+                reject(error);
+              }
+            );
         });
       },
       /**
@@ -76,18 +67,15 @@ angular.module('eMergencyApp')
        */
       logout: function() {
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
-            .then(function() {
-              $rootScope.DB.User.logout()
-                .then(
-                  function(success) {
-                    resolve(success);
-                  },
-                  function(error) {
-                    reject(error);
-                  }
-                );
-            });
+          $db.User.logout()
+            .then(
+              function(success) {
+                resolve(success);
+              },
+              function(error) {
+                reject(error);
+              }
+            );
         });
       }
     }

@@ -25,12 +25,20 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        resolve: {
+          $db: function($db) {
+            return $db.ready();
+          }
+        }
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
+      })
+      .when('/registrierung', {
+        templateUrl: 'views/registration.html',
       })
       .otherwise({
         redirectTo: '/'
@@ -39,8 +47,4 @@ angular
       .setPrefix('myApp')
       .setStorageType('sessionStorage')
       .setNotify(true, true)
-  })
-  .run(function($rootScope) {
-    $rootScope.DB = new DB.EntityManagerFactory("https://julian.baqend.com");
-    $rootScope.DB = $rootScope.DB.createEntityManager();
   });
