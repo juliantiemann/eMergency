@@ -8,7 +8,7 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('eventService', function ($q, $rootScope) {
+  .service('eventService', function ($rootScope, $q, $db) {
     return {
       /**
        * Return the last events
@@ -16,9 +16,9 @@ angular.module('eMergencyApp')
        */
       all: function() {
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
+          $db.ready()
             .then(function() {
-              $rootScope.DB.Event.find().resultList()
+              $db.Event.find().resultList()
                 .then(
                   function(response) {
                     resolve(response);
@@ -26,8 +26,8 @@ angular.module('eMergencyApp')
                   function(response) {
                     reject(response);
                   }
-                )
-            });
+                );
+              });
         });
       },
       /**
@@ -38,15 +38,12 @@ angular.module('eMergencyApp')
       add: function(newEvent) {
         newEvent.date = new Date();
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
-            .then(function() {
-              $rootScope.DB.Event(newEvent).insert(
-                function(success){
-                  resolve(success);
-                },
-                function(error) {
-                  reject(error);
-                });
+          $db.Event(newEvent).insert(
+            function(success){
+              resolve(success);
+            },
+            function(error) {
+              reject(error);
             });
         });
       },
@@ -57,15 +54,12 @@ angular.module('eMergencyApp')
        */
       update: function(event) {
         return $q(function(resolve, reject) {
-          $rootScope.DB.ready()
-            .then(function() {
-              event.save(
-                function(success){
-                  resolve(success);
-                },
-                function(error) {
-                  reject(error);
-                });
+          event.save(
+            function(success){
+              resolve(success);
+            },
+            function(error) {
+              reject(error);
             });
         });
       },
@@ -75,9 +69,9 @@ angular.module('eMergencyApp')
        */
       subscribe: function(callback) {
         var handler = $rootScope.$on('notifying-service-event', callback);
-        $rootScope.DB.ready()
+        $db.ready()
           .then(function() {
-            var stream = $rootScope.DB.Event.find().stream(false);
+            var stream = $db.Event.find().stream(false);
             stream.on("all", function(e) {
               $rootScope.$emit('notifying-service-event', e.data);
               $rootScope.$apply();
