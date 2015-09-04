@@ -8,29 +8,126 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('geoLocService', function (geolocation, localStorageService) {
+  .service('geoLocService', function (geolocation, localStorageService, $http, $q) {
     return{
-      getLocation: function() {
+      /**
+     * @ngdoc method
+     * @name eMergencyApp.geoLocService.get
+     * @methodOf eMergencyApp.geoLocService
+     * @returns {object} location information
+     * with error code:
+     * 0 = no error, possition accurate
+     * 1 = eroor, no possition provided
+     * 2 = error, position outdatesd
+     * 3 = error, position not accurate
+     */
+      get: function() {
+        return this.getBrowser();
+      },
+      /**
+     * @ngdoc method
+     * @name eMergencyApp.geoLocService.getBrowser
+     * @methodOf eMergencyApp.geoLocService
+     * @returns {object} location information from Geolocation API
+     * with error code:
+     * 0 = no error, possition accurate
+     * 1 = eroor, no possition provided
+     * 2 = error, position outdatesd
+     * 3 = error, position not accurate
+     */
+      getBrowser: function() {
+        var self = this;
         var timestamp = new Date();
-        return geolocation.getLocation().then(function(data){
-          var location = {
-            lat:data.coords.latitude,
-            long:data.coords.longitude,
-            time: timestamp
-          };
-          localStorageService.set('geoLoc', location);
-          return location;
-        }, function(error){
-          debugger
-          var location = localStorageService.get('geoLoc');
-          var time = new Date(location.time);
-          if((timestamp - time) < 900000){
-            debugger
+        var location = self.getStorage();
+        var time = new Date(location.time);
+        if ((timestamp - time) > 900000 ){
+          location.error = 2;
+        }
+        return geolocation.getLocation()
+          .then(function(data){
+            location = {
+              lat:data.coords.latitude,
+              long:data.coords.longitude,
+              time: timestamp,
+              error:0
+            };
+            localStorageService.set('geoLoc', location);
+            return location;
+          }, function(error){
+            if(localStorageService.get('geoLoc')) {
+              location = localStorageService.get('geoLoc');
+              time = new Date(location.time);
+              if ((timestamp - time) > 900000 ){
+                location.error = 2;
+              }
+            }
+            else {
+              location = self.getIp();
+            }
             return location;
           }
-          else {
-            return error;
+        );
+      },
+      /**
+     * @ngdoc method
+     * @name eMergencyApp.geoLocService.getStorage
+     * @methodOf eMergencyApp.geoLocService
+     * @returns {object} location information from Local Storage
+     * with error code:
+     * 0 = no error, possition accurate
+     * 1 = eroor, no possition provided
+     */
+      getStorage: function() {
+        var timestamp = new Date('01/12/1984');
+        var location = {};
+        return $q(function(resolve, reject) {
+          if(localStorageService.get('geoLoc')) {
+            location = localStorageService.get('geoLoc');
+            resolve(location);
           }
+          else {
+            location = {
+              lat:0,
+              long:0,
+              time:timestamp,
+              error:1
+            };
+            reject(location);
+          }
+        });
+      },
+      /**
+     * @ngdoc method
+     * @name eMergencyApp.geoLocService.getIp
+     * @methodOf eMergencyApp.geoLocService
+     * @returns {object} location information from IP ()
+     * with error code:
+     * 0 = no error, possition accurate
+     * 1 = eroor, no possition provided
+     * 2 = error, position outdatesd
+     * 3 = error, position not accurate
+     */
+      getIp: function() {
+        var timestamp = new Date();
+        var location = {};
+        return $http.get('http://ipinfo.io/json')
+        .then(function(response) {
+          var loc = response.data.loc.split(',');
+          location = {
+            lat:loc[0],
+            long:loc[1],
+            time:timestamp,
+            error:3
+          }
+          return location;
+        }, function(error) {
+          location = {
+            lat:0,
+            long:0,
+            time:timestamp,
+            error:1
+          };
+          return location;
         });
       }
     }

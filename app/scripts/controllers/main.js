@@ -28,14 +28,13 @@ angular.module('eMergencyApp')
         console.log(error);
       });
 
-    $scope.coords = {};
-    
-    geoLocService.getLocation()
-      .then(function(location) {
-        $scope.coords = location
-      }, function(error) {
-          console.log(error);
-      });
+      $scope.coords = {};
+      geoLocService.get()
+        .then(function(location) {
+          $scope.coords = location
+        }, function(error) {
+            console.log(error);
+        });
 
 
   });
