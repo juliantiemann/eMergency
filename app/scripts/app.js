@@ -25,22 +25,30 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        resolve: {
+          $db: function($db) {
+            return $db.ready();
+          }
+        }
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/register', {
+        templateUrl: 'views/registration.html',
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+      })
       .otherwise({
         redirectTo: '/'
       });
+      
     localStorageServiceProvider
       .setPrefix('eMergencyApp')
       .setStorageType('localStorage')
       .setNotify(true, true)
-  })
-  .run(function($rootScope) {
-    $rootScope.DB = new DB.EntityManagerFactory("https://julian.baqend.com");
-    $rootScope.DB = $rootScope.DB.createEntityManager();
   });
