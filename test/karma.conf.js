@@ -75,13 +75,13 @@ module.exports = function(config) {
     reporters: ['dots', 'junit', 'coverage'],
 
     junitReporter: {
-    	outputDir: 'tests/out/junit/',
+    	outputDir: 'test/out/junit/',
         suit: ''
     },
 
     coverageReporter : {
         type: 'html',
-        dir: 'tests/out/',
+        dir: 'test/out/',
         subdir: 'coverage/'
     },
 
