@@ -64,9 +64,28 @@ module.exports = function(config) {
 
     // Which plugins to enable
     plugins: [
-      "karma-phantomjs-launcher",
-      "karma-jasmine"
+      'karma-junit-reporter',
+      'karma-coverage',
+      'karma-phantomjs-launcher',
+      'karma-jasmine'
     ],
+
+    // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    //reporters: ['progress', 'html', 'coverage'],
+    reporters: ['dots', 'junit', 'coverage'],
+
+    junitReporter: {
+    	outputDir: 'test/out/junit/',
+        suit: ''
+    },
+
+    coverageReporter : {
+        type: 'html',
+        dir: 'test/out/',
+        subdir: 'coverage/'
+    },
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
