@@ -6,3 +6,8 @@ deployment:
     branch: master
     commands:
       - grunt deploy;
+
+test:
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex "./test/out/junit/*/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
