@@ -27,15 +27,16 @@
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
-    "karma": "*",
+    "jasmine-core": "*",
     "karma-jasmine": "*",
+    "karma": ">=0.9",
+    "phantomjs": ">=1.9",
     "karma-phantomjs-launcher": "*",
     "karma-coverage": "^0.4.2",
     "karma-jasmine-html-reporter": "^0.1.8",
     "karma-junit-reporter": "^0.3.3",
     "time-grunt": "^1.0.0",
-    "grunt-gh-pages": "*",
-	  "baqend": "0.9.5"
+    "grunt-gh-pages": "*"
   },
   "engines": {
     "node": ">=0.10.0"
