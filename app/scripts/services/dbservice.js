@@ -1,5 +1,5 @@
 'use strict';
-
+var dbconnected = false;
 /**
  * @ngdoc service
  * @name eMergencyApp.db
@@ -9,6 +9,9 @@
  */
 angular.module('eMergencyApp')
   .service('$db', function () {
-    DB.connect("https://julian.baqend.com");
+    if(!dbconnected) {
+      DB.connect("https://julian.baqend.com");
+      dbconnected = true;
+    }
     return DB;
   });
