@@ -39,14 +39,16 @@ angular
       })
       .when('/register', {
         templateUrl: 'views/registration.html',
+        controller: 'RegisterCtrl',
       })
       .when('/login', {
         templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
-      
+
     localStorageServiceProvider
       .setPrefix('eMergencyApp')
       .setStorageType('localStorage')

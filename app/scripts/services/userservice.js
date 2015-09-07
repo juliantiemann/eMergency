@@ -34,6 +34,7 @@ angular.module('eMergencyApp')
      * @return {promise} Returns the new User object or an empty Object.
      */
     this.register = function(newUser, password) {
+      var newUser = new $db.User(newUser);
       return $q(function(resolve, reject) {
         $db.User.register(newUser, password)
           .then(
