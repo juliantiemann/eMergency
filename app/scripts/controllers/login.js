@@ -8,10 +8,13 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('LoginCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('LoginCtrl', function ($scope, userService) {
+    $scope.user = {};
+    $scope.password = '';
+    $scope.login = function(user,password){
+      userService.login(user,password)
+        .then(function(){
+          window.location.href('/');
+        });
+    };
   });
