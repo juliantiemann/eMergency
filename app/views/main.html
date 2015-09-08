@@ -10,6 +10,6 @@
 
 <div id="map_canvas" ng-controller="MainCtrl">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-      <ui-gmap-marker ng-repeat="event in events" idKey='event.id' coords='event.location' options='{draggable: false, labelContent: event.id}'></ui-gmap-marker>
+      <ui-gmap-marker ng-repeat="event in events track by $index" idKey='event.id' coords='event.location' options='{draggable: false, title: "This is a Test"}'></ui-gmap-marker>
     </ui-gmap-google-map>
 </div>
