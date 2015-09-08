@@ -43,10 +43,13 @@ angular
       .when('/login', {
         templateUrl: 'views/login.html',
       })
+      .when('/creation', {
+        templateUrl: 'views/eventcreation.html',
+      })
       .otherwise({
         redirectTo: '/'
       });
-      
+
     localStorageServiceProvider
       .setPrefix('eMergencyApp')
       .setStorageType('localStorage')
