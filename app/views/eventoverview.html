@@ -1,0 +1,14 @@
+<table class="table table-striped">
+<thead><tr>
+  <th>Typ</th>
+  <th>Zeit</th>
+  <th>Hinweise</th>
+  <th>erledigt</th>
+</tr></thead>
+<tbody><tr ng-repeat="event in events | orderBy:'-date'">
+  <td>{{event.type.bezeichnung}}</td>
+  <td>{{event.date | amTimeAgo}}</td>
+  <td>{{event.additional}}</td>
+  <td><input type="checkbox" ng-model="event.done"</td>
+</tr></tbody>
+</table>

@@ -18,7 +18,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'geolocation',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'angularMoment'
   ])
   .config(function ($routeProvider, localStorageServiceProvider) {
     $routeProvider
@@ -46,9 +47,12 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-      
+
     localStorageServiceProvider
       .setPrefix('eMergencyApp')
       .setStorageType('localStorage')
       .setNotify(true, true)
+  })
+  .run(function(amMoment) {
+    amMoment.changeLocale('de');
   });
