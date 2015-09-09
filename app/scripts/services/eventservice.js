@@ -40,37 +40,35 @@ angular.module('eMergencyApp')
               });
         });
       },
-      paginate: function(pageId, resultsPerPage){
+      paginate: function(timestamp, resultsPerPage){
         return $q(function(resolve, reject) {
           $db.ready()
-          .then(function() {
-            $db.Event.find()
-            .greaterThan('id', pageId)
-            .ascending('id', pageId)
-            .limit(resultsPerPage)
-            .resultList(function(result){
-              pageId = result[result.length - 1];
-            })
-              .then(
-                function(response) {
-                  var typesLoaded = [];
-                  angular.forEach(response, function(event, k) {
-                    if(event.type !== null) {
-                      typesLoaded.push(event.type.load().then(function(type) {
-                        event.type = type;
-                      }));
+            .then(function() {
+              $db.Event.find()
+                .lessThan('date', new Date(timestamp))
+                .descending('date')
+                .limit(resultsPerPage)
+                .resultList()
+                  .then(
+                    function(response) {
+                      var typesLoaded = [];
+                      angular.forEach(response, function(event, k) {
+                        if(event.type !== null) {
+                          typesLoaded.push(event.type.load().then(function(type) {
+                            event.type = type;
+                          }));
+                        }
+                      });
+                      $q.all(typesLoaded).then(function() {
+                        resolve(response);
+                      });
+                    },
+                    function(response) {
+                      reject(response);
                     }
-                  });
-                  $q.all(typesLoaded).then(function() {
-                    resolve(response);
-                  });
-                      },
-                      function(response) {
-                        reject(response);
-                      }
-                    );
-          })
-        })
+                  );
+            });
+        });
       },
       /**
        * Adds a new event.

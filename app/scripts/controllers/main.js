@@ -17,16 +17,21 @@ angular.module('eMergencyApp')
       eventService.add({});
     }
 
-    $scope.paginateEvents = function(lastId, resultsPerPage){
-        if($scope.eventsPaginated.length = 0){
-          $scope.eventsPaginated = eventService.paginate(1,5);
-        } else {
-          eventService.paginate(lastId, resultsPerPage)
-          .then(function(response){
-            $scope.eventsPaginated.push(response);
-          })
-        }
+    $scope.paginateEvents = function() {
+      console.log($scope.eventsPaginated);
+      var lastTimestamp = new Date($scope.eventsPaginated[$scope.eventsPaginated.length-1].date).getTime();
+      eventService.paginate(lastTimestamp, 5)
+        .then(function(response){
+          angular.forEach(response, function(event) {
+            $scope.eventsPaginated.push(event);
+          });
+        });
     }
+
+    eventService.paginate(new Date().getTime(), 5)
+      .then(function(response) {
+        $scope.eventsPaginated = response;
+      })
 
     eventService.all($scope.events)
       .then(function(response) {
