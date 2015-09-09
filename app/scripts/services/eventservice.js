@@ -15,20 +15,19 @@ angular.module('eMergencyApp')
        * @return {array} The last events
        */
       all: function() {
-        return $q(function(resolve, reject) {
-          $db.ready()
-            .then(function() {
-              $db.Event.find().resultList()
-                .then(
-                  function(response) {
-                    resolve(response);
-                  },
-                  function(response) {
-                    reject(response);
-                  }
-                );
-              });
-        });
+        var deferred = $q.defer();
+        $db.Event.find().resultList()
+          .then(
+            function(response) {
+              deferred.resolve(response);
+              $rootScope.$digest();
+            },
+            function(response) {
+              deferred.reject(response);
+              $rootScope.$digest();
+            }
+          );
+        return deferred.promise;
       },
       /**
        * Adds a new event.

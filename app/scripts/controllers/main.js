@@ -19,7 +19,7 @@ angular.module('eMergencyApp')
     eventService.all($scope.events)
       .then(function(response) {
         $scope.events = response;
-
+        
         eventService.subscribe(function(e, event) {
           $scope.events.push(event);
         });
