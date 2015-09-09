@@ -21,7 +21,17 @@ angular.module('eMergencyApp')
               $db.Event.find().resultList()
                 .then(
                   function(response) {
-                    resolve(response);
+                     var typesLoaded = [];
+                     angular.forEach(response, function(event, k) {
+                       if(event.type !== null) {
+                         typesLoaded.push(event.type.load().then(function(type) {
+                           event.type = type;
+                         }));
+                       }
+                     });
+                     $q.all(typesLoaded).then(function() {
+                       resolve(response);
+                     });
                   },
                   function(response) {
                     reject(response);
