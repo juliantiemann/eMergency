@@ -9,6 +9,7 @@
  */
 angular.module('eMergencyApp')
   .controller('AboutCtrl', function () {
+    console.log("about");
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

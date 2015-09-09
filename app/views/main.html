@@ -2,20 +2,20 @@
   {{ userService.user }}
 </div>
 <div class="baqend">
-  <!--
-  <p ng-repeat="event in events track by event.id">
+
+  <!-- <p ng-repeat="event in events track by event.id">
     Event: {{ event }}
-  </p>
-  -->
+  </p> -->
+
 	<a href="" class="btn btn-default" ng-click="addEvent()">Neues Event hinzufügen</a>
 </div>
-
-<div id="map_canvas" ng-controller="MainCtrl">
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-      <ui-gmap-markers models="events" idkey="id" doCluster='true' click="onClick" coords="'self'" icon="'icon'">
-        <ui-gmap-windows show="'show'">
-                <div ng-non-bindable>{{content}}</div>
-        </ui-gmap-windows>
-      </ui-gmap-markers>
-    </ui-gmap-google-map>
+{{ coords }}
+<div id="map_canvas">
+  <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+    <ui-gmap-markers idkey="id" doCluster='true' models="markers" coords="'self'" icon="'icon'" click='onClick'>
+      <ui-gmap-windows show="show">
+        <div ng-non-bindable>{{content}}</div>
+      </ui-gmap-windows>
+    </ui-gmap-markers>
+  </ui-gmap-google-map>
 </div>
