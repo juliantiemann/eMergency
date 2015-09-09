@@ -4,13 +4,13 @@
       <h3 class="text-center">Anmelden</h3>
       <div class="form-group">
         <label for="emailadress">Email Adresse:</label>
-        <input type="text" class="form-control" id="emailadress">
+        <input type="text" class="form-control" ng-model="user.username">
       </div>
       <div class="form-group">
         <label for="pwd">Passwort:</label>
-        <input type="password" class="form-control" id="pwd">
+        <input type="password" class="form-control" ng-model="password">
       </div>
-      <button type="submit" class="btn btn-primary btn-block">Jetzt anmelden</button>
+      <button type="submit" class="btn btn-primary btn-block" ng-click="login(user,password)">Jetzt anmelden</button>
       <br />
       <p class="text-center">
         Du hast noch keinen Account? <a ng-href="#/register">Jetzt registrieren</a>
