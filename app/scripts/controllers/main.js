@@ -8,9 +8,13 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('MainCtrl', function ($scope, $db, userService, eventService, geoLocService) {
+  .controller('MainCtrl', function ($scope, $db, userService, eventService, geoLocService, uiGmapIsReady) {
+    var createMarker;
     $scope.userService = userService;
     $scope.events = [];
+    $scope.markers = [];
+    $scope.coords = {};
+    $scope.map = {};
 
     $scope.addEvent = function() {
       eventService.add({});
@@ -18,46 +22,23 @@ angular.module('eMergencyApp')
     console.log("mainctrl");
     eventService.all($scope.events)
       .then(function(response) {
+        $scope.events = response;
         angular.forEach(response, function(entry) {
           if(entry.location && entry.location.latitude && entry.location.longitude) {
-            var event = {
-              id: entry.id,
-              latitude: entry.location.latitude,
-              longitude: entry.location.longitude,
-              icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
-              content: '<h3>' + entry.type.bezeichnung + '</h3>' + entry.additional,
-              show: false
-            };
-            event.onClick = function() {
-              event.show = !event.show;
-            }
-            $scope.events.push(event);
+            $scope.markers.push(createMarker(entry));
           }
         });
-        console.log($scope.events);
+
         eventService.subscribe(function(e, entry) {
+          $scope.events.push(entry);
           if(entry.location && entry.location.latitude && entry.location.longitude) {
-            var event = {
-              id: entry.id,
-              latitude: entry.location.latitude,
-              longitude: entry.location.longitude,
-              icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
-              content: '<h3>' + entry.type.bezeichnung + '</h3>' + entry.additional,
-              show: false
-            };
-            event.onClick = function() {
-              event.show = !event.show;
-            }
-            $scope.events.push(event);
+            $scope.markers.push(createMarker(entry));
           }
         });
 
       }, function(error) {
         console.log(error);
       });
-
-    $scope.coords = {};
-    $scope.map = {};
 
     console.log("geoservice.get");
 
@@ -73,5 +54,21 @@ angular.module('eMergencyApp')
       }, function(error) {
           console.log(error);
       });
+
+    createMarker = function (entry) {
+      var event = {
+        id: entry.id,
+        latitude: entry.location.latitude,
+        longitude: entry.location.longitude,
+        icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
+        content: entry.type.bezeichnung + '<br />' + entry.additional,
+        show: false
+      };
+      event.onClick = function() {
+        console.log("click");
+        event.show = !event.show;
+      }
+      return event;
+    };
 
   });
