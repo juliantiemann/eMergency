@@ -29,8 +29,8 @@ angular.module('eMergencyApp')
               });
               $q.all(typesLoaded).then(function() {
                 deferred.resolve(response);
-                $rootScope.$digest();
               });
+              $rootScope.$digest();
             },
             function(response) {
               deferred.reject(response);
