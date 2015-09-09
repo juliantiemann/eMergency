@@ -19,8 +19,18 @@ angular.module('eMergencyApp')
         $db.Event.find().resultList()
           .then(
             function(response) {
-              deferred.resolve(response);
-              $rootScope.$digest();
+              var typesLoaded = [];
+              angular.forEach(response, function(event, k) {
+                if(event.type !== null) {
+                  typesLoaded.push(event.type.load().then(function(type) {
+                    event.type = type;
+                  }));
+                }
+              });
+              $q.all(typesLoaded).then(function() {
+                deferred.resolve(response);
+                $rootScope.$digest();
+              });
             },
             function(response) {
               deferred.reject(response);
