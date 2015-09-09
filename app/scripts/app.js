@@ -19,7 +19,8 @@ angular
     'ngTouch',
     'geolocation',
     'LocalStorageModule',
-    'angularMoment'
+    'angularMoment',
+    'infinite-scroll'
   ])
   .config(function ($routeProvider, localStorageServiceProvider) {
     $routeProvider
