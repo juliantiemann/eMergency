@@ -39,6 +39,36 @@ angular.module('eMergencyApp')
           );
         return deferred.promise;
       },
+      paginate: function(timestamp, resultsPerPage){
+        return $q(function(resolve, reject) {
+          $db.ready()
+            .then(function() {
+              $db.Event.find()
+                .lessThan('date', new Date(timestamp))
+                .descending('date')
+                .limit(resultsPerPage)
+                .resultList()
+                  .then(
+                    function(response) {
+                      var typesLoaded = [];
+                      angular.forEach(response, function(event, k) {
+                        if(event.type !== null) {
+                          typesLoaded.push(event.type.load().then(function(type) {
+                            event.type = type;
+                          }));
+                        }
+                      });
+                      $q.all(typesLoaded).then(function() {
+                        resolve(response);
+                      });
+                    },
+                    function(response) {
+                      reject(response);
+                    }
+                  );
+            });
+        });
+      },
       /**
        * Adds a new event.
        * @param {object} an baqend Event Object
