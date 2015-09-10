@@ -16,10 +16,12 @@
 {{ coords }}
 <div id="map_canvas">
   <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-    <ui-gmap-markers idkey="id" doCluster='true' models="markers" coords="'self'" icon="'icon'" click='onClick'>
-      <ui-gmap-windows show="show">
-        <div ng-non-bindable>{{content}}</div>
-      </ui-gmap-windows>
+    <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
+        <ui-gmap-windows ng-cloak>
+            <div ng-non-bindable>
+              {{ content }}
+            </div>
+        </ui-gmap-windows>
     </ui-gmap-markers>
   </ui-gmap-google-map>
 </div>
