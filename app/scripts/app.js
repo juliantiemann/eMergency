@@ -19,6 +19,9 @@ angular
     'ngTouch',
     'geolocation',
     'LocalStorageModule',
+    'angularMoment',
+    'infinite-scroll',
+    'scrollable-table',
     'uiGmapgoogle-maps'
   ])
   .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
@@ -62,5 +65,8 @@ angular
         //    key: 'your api key',
         v: '3.20', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
-    });
+    });  
+  })
+  .run(function(amMoment) {
+    amMoment.changeLocale('de');
   });
