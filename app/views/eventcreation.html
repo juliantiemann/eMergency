@@ -1,56 +1,76 @@
-<div class="container-fluid">
-  <div class="rows">
-    <div class="col-sm-3 col-xs-3 col-md-3"><button type="button"class="btn btn-danger"><img src="images/buttons/herz.png"></button></div>
-    <div class="col-sm-3 col-xs-3 col-md-3"><button type="button" class="btn btn-warning"><img src="images/buttons/feuer.png"></button></div>
-    <div class="col-sm-3 col-xs-3 col-md-3"><button type="button" class="btn btn-success"><img src="images/buttons/unfall.png"></button></div>
-    <div class="col-sm-3 col-xs-3 col-md-3"><button type="button" class="btn btn-primary"><img src="images/buttons/hammer.png"></button></div>
-  </div>
-</div>
-
-<div class="container-fluid"
-<h1><strong><i>Neues Ereignis melden</i></strong> <span class ="label label-default"></span></h1>
-
-  <!-- define eventtype -->
+<div class="container-fluid" ng-controller="EventCtrl">
   <div class="row">
-    <div class="col-sm-6 col-xs-6 col-md-6"><h5>Ereignistyp <span class="label label-default"></span></h5></div>
-    <div class="col-sm-6 col-xs-6 col-md-6"><h5>
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Eventart
-          <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">medizinisch</a></li>
-              <li><a href="#">unfall</a></li>
-              <li><a href="#">feuer</a></li>
-              <li><a href="#">panne</a></li>
-              <li><a href="#">handwerklich</a></li>
-            </ul>
+    <form ng-submit="event()">
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-danger"><img class="emergencybtn" src="images/buttons/herz.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-warning"><img class="emergencybtn" src="images/buttons/feuer.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-success"><img class="emergencybtn" src="images/buttons/unfall.png"></button></div>
+    </form>
+    <form ng-submit="event()">
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-primary"><img class="emergencybtn" src="images/buttons/hammer.png"></button></div>
+    </form>
+  </div>
+
+  <div class="page-header">
+    <h1 class="page-header">Neues Ereignis melden</h1>
+  </div>
+
+  <form ng-submit="event()">
+    <!-- Eventtype -->
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Ereignistyp</span>
+          <div class="dropdown">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown"> Eventart
+              <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Personenschaden</a></li>
+                  <li><a href="#">Feuer</a></li>
+                  <li><a href="#">Unfall/Panne</a></li>
+                  <li><a href="#">Handwerk</a></li>
+                </ul>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- get location -->
-  <div class="row">
-    <div class="col-sm-6 col-xs-6 col-md-6"><h5>Ort<span class="label label-default"></span></h5></div>
-    <div class="col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control"></div>
-  </div>
+    <!-- get location -->
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="input-group">
+          <span class="input-group-addon">Ort</span>
+          <input type="text" class="form-control">
+          <button type="button" class="btn btn-default glyphicon glyphicon-screenshot"></button>
+        </div>
+      </div>
+    </div>
 
-  <!-- User -->
-  <div class="row">
-    <div class="col-sm-6 col-xs-6 col-md-6"><h5>gemeldet von<span class="label label-default"></span></h5></div>
-    <div class="col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control"></div>
-  </div>
+    <!-- User -->
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">gemeldet von</span>
+          <input type="text" class="form-control"></div>
+        </div>
+    </div>
 
-  <!-- event discription -->
-  <div class="row">
-    <div class="col-sm-6 col-xs-6 col-md-6"><h5>Beschreibung<span class="label label-default"></span></h5></div>
-    <div clas="col-sm-6 col-xs-6 col-md-6"><div class="form-group">
-      <textarea class="form-control" rows="4"></textarea></div></div>
-  </div>
+    <!-- event discription -->
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="input-group">
+          <span class="input-group-addon">Beschreibung</span>
+          <textarea class="form-control" rows="4"></textarea>
+        </div>
+      </div>
+    </div>
 
-  <!-- abort and submit buttons -->
-  <div class="row">
-    <div class="col-sm-6 col-xs-6 col-md-9"><button type="button" class="btn btn-default">Abbrechen</button></div>
-    <div class="col-sm-6 col-xs-6 col-md-3"><button type="button" class="btn btn-danger">Ereignis melden</button></div>
-  </div>
+    <!-- abort and submit buttons -->
+    <div class="row">
+      <div class="col-sm-2 col-xs-2 col-md-2"></div>
+      <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="button" class="btn btn-default">Abbrechen</button></div>
+      <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="button" class="btn btn-danger">Ereignis melden</button></div>
+      <div class="col-sm-2 col-xs-2 col-md-2"></div>
+    </div>
+  </form>
 </div>
 <!-- end gridlayout -->
