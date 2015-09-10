@@ -20,7 +20,8 @@ angular
     'geolocation',
     'LocalStorageModule',
     'angularMoment',
-    'infinite-scroll'
+    'infinite-scroll',
+    'scrollable-table'
   ])
   .config(function ($routeProvider, localStorageServiceProvider) {
     $routeProvider

@@ -33,6 +33,11 @@ angular.module('eMergencyApp')
         $scope.eventsPaginated = response;
       })
 
+      $scope.$watch('selected', function(fac) {
+         $scope.$broadcast("rowSelected", fac);
+      });
+
+
     eventService.all($scope.events)
       .then(function(response) {
         //laden aller Events aus der DB

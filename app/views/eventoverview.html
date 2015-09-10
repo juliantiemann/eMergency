@@ -1,25 +1,29 @@
-<!-- <table class="table table-striped">
-  <thead><tr>
-    <th>Typ</th>
-    <th>Zeit</th>
-    <th>Hinweise</th>
-    <th>erledigt</th>
-  </tr></thead>
-  <tbody>
-    <tr ng-switch on="event.type.bezeichnung" ng-repeat="event in eventsPaginated | orderBy:'-date'">
-      <td>
-        <img ng-switch-when="Personenschaden" ng-src="images/herz.svg" />
-        <img ng-switch-when="Feuer" ng-src="images/feuer.svg" />
-        <img ng-switch-when="Handwerk" ng-src="images/hammer.svg" />
-        <img ng-switch-when="Unfall" ng-src="images/unfall.svg" />
-      </td>
-      <td>{{event.date | amTimeAgo}}</td>
-      <td>{{event.additional}}</td>
-      <td><input type="checkbox" ng-model="event.done"</td>
-    </tr>
-  </tbody>
-</table> -->
-<div ng-repeat="event in eventsPaginated">
-  {{event.date}}
-</div>
-<a href="" ng-click="paginateEvents()">Load More</a>
+<scrollable-table watch="eventsPaginated">
+  <table class="table table-striped">
+    <thead><tr>
+      <th width="7%">Typ</th>
+      <th width="20%">Zeit</th>
+      <th width="62%">Hinweise</th>
+      <th width="21%">erledigt</th>
+    </tr></thead>
+    <tbody>
+      <tr ng-switch on="event.type.bezeichnung" ng-repeat="event in eventsPaginated | orderBy:'-date'">
+        <td>
+          <img width="30px" ng-switch-when="Personenschaden" ng-src="images/herz.svg" />
+          <img width="30px" ng-switch-when="Feuer" ng-src="images/feuer.svg" />
+          <img width="30px" ng-switch-when="Handwerk" ng-src="images/hammer.svg" />
+          <img width="30px" ng-switch-when="Unfall" ng-src="images/unfall.svg" />
+        </td>
+        <td>{{event.date | amTimeAgo}}</td>
+        <td>{{event.additional}}</td>
+        <td style="text-align:center"><input type="checkbox" ng-model="event.done"</td>
+      </tr>
+      <!-- <tr><a href="" ng-click="paginateEvents()">Load More</a></tr> -->
+    </tbody>
+    <tfoot>
+        <td colspan="4">
+          <button href="" ng-click="paginateEvents()">ältere Ereignisse anzeigen</button>
+        </td>
+      </tfoot>
+  </table>
+</scrollable-table>
