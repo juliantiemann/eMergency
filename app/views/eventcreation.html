@@ -1,9 +1,9 @@
 <div class="container-fluid" ng-controller="EventCtrl">
   <div class="row">
     <form ng-submit="event()">
-      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-danger"><img class="emergencybtn" src="images/buttons/herz.png"></button></div>
-      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-warning"><img class="emergencybtn" src="images/buttons/feuer.png"></button></div>
-      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-success"><img class="emergencybtn" src="images/buttons/unfall.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click='quickEvent("personenschaden")' class="btn btn-danger"><img class="emergencybtn" src="images/buttons/herz.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click='quickEvent("feuer")' class="btn btn-warning"><img class="emergencybtn" src="images/buttons/feuer.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click='quickEvent("unfall")' class="btn btn-success"><img class="emergencybtn" src="images/buttons/unfall.png"></button></div>
     </form>
     <form ng-submit="event()">
       <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" class="btn btn-primary"><img class="emergencybtn" src="images/buttons/hammer.png"></button></div>
@@ -39,8 +39,8 @@
       <div class="col-sm-12 col-xs-12 col-md-12">
         <div class="input-group">
           <span class="input-group-addon">Ort</span>
-          <input type="text" class="form-control">
-          <button type="button" class="btn btn-default glyphicon glyphicon-screenshot"></button>
+          <input type="text" class="form-control" value="{{coords}}">
+          <button type="button" ng-click="setMyMarker()" class="btn btn-default glyphicon glyphicon-map-marker"></button>
         </div>
       </div>
     </div>
