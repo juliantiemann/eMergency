@@ -8,7 +8,7 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('geoLocService', function (geolocation, localStorageService, $http, $q) {
+  .service('geoLocService', function ($rootScope, geolocation, localStorageService, $http, $q) {
     return{
       /**
      * @ngdoc method
@@ -37,36 +37,39 @@ angular.module('eMergencyApp')
      */
       getBrowser: function() {
         var self = this;
+        var deferred = $q.defer();
         var timestamp = new Date();
         var location = self.getStorage();
         var time = new Date(location.time);
         if ((timestamp - time) > 900000 ){
           location.error = 2;
         }
-        return geolocation.getLocation()
-          .then(function(data){
-            location = {
-              lat:data.coords.latitude,
-              long:data.coords.longitude,
-              time: timestamp,
-              error:0
-            };
-            localStorageService.set('geoLoc', location);
-            return location;
-          }, function(error){
-            if(localStorageService.get('geoLoc')) {
-              location = localStorageService.get('geoLoc');
-              time = new Date(location.time);
-              if ((timestamp - time) > 900000 ){
-                location.error = 2;
-              }
+        geolocation.getLocation()
+          .then(
+            function(data){
+              console.log("got location");
+              location = {
+                lat:data.coords.latitude,
+                long:data.coords.longitude,
+                time: timestamp,
+                error:0
+              };
+              localStorageService.set('geoLoc', location);
+              deferred.resolve(location);
+            },
+            function(error){
+              location = self.getIp()
+                .then(
+                  function(location) {
+                    deferred.resolve(location);
+                  },
+                  function(error) {
+                    deferred.reject(error);
+                  }
+                );
             }
-            else {
-              location = self.getIp();
-            }
-            return location;
-          }
-        );
+          );
+        return deferred.promise;
       },
       /**
      * @ngdoc method
