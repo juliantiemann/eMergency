@@ -18,9 +18,10 @@ angular
     'ngSanitize',
     'ngTouch',
     'geolocation',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'uiGmapgoogle-maps'
   ])
-  .config(function ($routeProvider, localStorageServiceProvider) {
+  .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -32,16 +33,18 @@ angular
           }
         }
       })
-      .when('/about', {
+      .when('/about/', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/register', {
+      .when('/register/', {
         templateUrl: 'views/registration.html',
+        controller: 'RegisterCtrl',
       })
-      .when('/login', {
+      .when('/login/', {
         templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
       .when('/creation', {
         templateUrl: 'views/eventcreation.html',
@@ -54,4 +57,10 @@ angular
       .setPrefix('eMergencyApp')
       .setStorageType('localStorage')
       .setNotify(true, true)
+
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
   });

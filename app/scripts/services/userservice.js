@@ -9,23 +9,19 @@
  */
 angular.module('eMergencyApp')
   .service('userService', function ($q, $db, $rootScope) {
-    this.user = null;
+    var self = this;
+    this.guest = null;
     this.user = {};
     /**
      * Returns a promise, with either the logged in user or returns an empty object.
      * @return {promise} Returns a promise.
      */
     this.getCurrentUser = function() {
-      self = this;
-      $db.ready()
-        .then(function() {
-          if($db.User.me) {
-            self.user = $db.User.me;
-          } else {
-            self.guest = true;
-          }
-          $rootScope.$apply();
-        });
+      if($db.User.me) {
+        this.user = $db.User.me;
+      } else {
+        this.guest = true;
+      }
     };
     /**
      * registers a new User in baqend
@@ -34,17 +30,20 @@ angular.module('eMergencyApp')
      * @return {promise} Returns the new User object or an empty Object.
      */
     this.register = function(newUser, password) {
-      return $q(function(resolve, reject) {
-        $db.User.register(newUser, password)
-          .then(
-            function() {
-              resolve($db.User.me);
-            },
-            function() {
-              reject({});
-            }
-          );
-      });
+      var deferred = $q.defer();
+      //var newUser = new $db.User(newUser);
+      $db.User.register(newUser, password)
+        .then(
+          function(success) {
+            deferred.resolve(success);
+            $rootScope.$digest();
+          },
+          function(error) {
+            deferred.reject(error);
+            $rootScope.$digest();
+          }
+        );
+      return deferred.promise;
     };
     /**
      * log in a User in baqend
@@ -53,34 +52,42 @@ angular.module('eMergencyApp')
      * @return {promise} Returns the User object or an empty Object.
      */
     this.login = function(user, password) {
-      return $q(function(resolve, reject) {
-        $db.User.login(user, password)
-          .then(
-            function(success) {
-              resolve(success);
-            },
-            function(error) {
-              reject(error);
-            }
-          );
-      });
+      var deferred = $q.defer();
+      $db.User.login(user, password)
+        .then(
+          function(success) {
+            deferred.resolve(success);
+            $rootScope.$digest();
+          },
+          function(error) {
+            deferred.reject(error);
+            $rootScope.$digest();
+          }
+        );
+      return deferred.promise;
     };
     /**
      * current user logout from baqend
      * @return {promise}
      */
     this.logout = function() {
-      return $q(function(resolve, reject) {
-        $db.User.logout()
-          .then(
-            function(success) {
-              resolve(success);
-            },
-            function(error) {
-              reject(error);
-            }
-          );
-      });
+      var deferred = $q.defer();
+      $db.User.logout()
+        .then(
+          function(success) {
+            deferred.resolve(success);
+            $rootScope.$digest();
+          },
+          function(error) {
+            deferred.reject(error);
+            $rootScope.$digest();
+          }
+        );
+      return deferred.promise;
     };
-    this.getCurrentUser();
+
+    $db.ready(function() {
+      self.getCurrentUser();
+      $rootScope.$apply();
+    });
   });
