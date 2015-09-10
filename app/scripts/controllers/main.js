@@ -9,13 +9,12 @@
  */
 angular.module('eMergencyApp')
   .controller('MainCtrl', function ($scope, $db, userService, eventService, geoLocService, uiGmapIsReady) {
-    var createMarker;
+    var createMarker, createMap;
     $scope.userService = userService;
     $scope.events = [];
     $scope.eventsPaginated = [];
-    $scope.markers = [];
     $scope.coords = {};
-    $scope.map = {};
+    $scope.map = {markers:[]};
 
     $scope.addEvent = function() {
       eventService.add({});
@@ -41,21 +40,24 @@ angular.module('eMergencyApp')
          $scope.$broadcast("rowSelected", fac);
       });
 
-
     eventService.all($scope.events)
       .then(function(response) {
         //laden aller Events aus der DB
         $scope.events = response;
-        angular.forEach(response, function(entry) {
-          if(entry.location && entry.location.latitude && entry.location.longitude) {
-            $scope.markers.push(createMarker(entry));
-          }
-        });
+
+        uiGmapIsReady.promise()
+          .then(function() {
+            angular.forEach(response, function(entry) {
+              if(entry.location && entry.location.latitude && entry.location.longitude) {
+                $scope.map.markers.push(createMarker(entry));
+              }
+            });
+          });
 
         eventService.subscribe(function(e, entry) {
           $scope.events.push(entry);
           if(entry.location && entry.location.latitude && entry.location.longitude) {
-            $scope.markers.push(createMarker(entry));
+            $scope.map.markers.push(createMarker(entry));
           }
         });
 
@@ -63,35 +65,36 @@ angular.module('eMergencyApp')
         console.log(error);
       });
 
-    console.log("geoservice.get");
-
     geoLocService.getStorage()
       .then(function(location) {
         $scope.coords = location;
-        $scope.map = {center: {latitude: location.lat, longitude: location.long}, zoom: 14, options:  {scrollwheel: false}};
+        createMap(location);
       });
+
     geoLocService.get()
       .then(function(location) {
         $scope.coords = location
-        $scope.map = {center: {latitude: location.lat, longitude: location.long}, zoom: 14, options:  {scrollwheel: false}};
+        createMap(location);
       }, function(error) {
           console.log(error);
       });
 
+    createMap = function(location) {
+      $scope.map.center = {latitude: location.lat, longitude: location.long};
+      $scope.map.zoom = 12;
+      $scope.map.options = {scrollwheel: false};
+    }
+
     createMarker = function (entry) {
-      var event = {
+      var marker = {
         id: entry.id,
         latitude: entry.location.latitude,
         longitude: entry.location.longitude,
         icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
         content: entry.type.bezeichnung + '<br />' + entry.additional,
-        show: false
+        showWindow: false
       };
-      event.onClick = function() {
-        console.log("click");
-        event.show = !event.show;
-      }
-      return event;
+      return marker;
     };
 
   });
