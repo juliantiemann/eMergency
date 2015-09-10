@@ -17,30 +17,26 @@ angular.module('eMergencyApp')
     $scope.map = {markers:[]};
 
     $scope.addEvent = function() {
-      eventService.add({});
+      var bla = {location:$scope.coords.lat + ";" + $scope.coords.long};
+      console.log(bla);
+      eventService.add(bla);
     }
 
     $scope.paginateEvents = function() {
-      console.log($scope.eventsPaginated);
-      var lastTimestamp = new Date($scope.eventsPaginated[$scope.eventsPaginated.length-1].date).getTime();
-      eventService.paginate(lastTimestamp, 5)
+      var lastTimestamp = new Date($scope.events[$scope.events.length-1].date).getTime();
+      eventService.load(lastTimestamp, 5)
         .then(function(response){
           angular.forEach(response, function(event) {
-            $scope.eventsPaginated.push(event);
+            $scope.events.push(event);
           });
         });
     }
 
-    eventService.paginate(new Date().getTime(), 5)
-      .then(function(response) {
-        $scope.eventsPaginated = response;
-      })
+    $scope.$watch('selected', function(fac) {
+       $scope.$broadcast("rowSelected", fac);
+    });
 
-      $scope.$watch('selected', function(fac) {
-         $scope.$broadcast("rowSelected", fac);
-      });
-
-    eventService.all($scope.events)
+    eventService.load(new Date().getTime(), 5)
       .then(function(response) {
         //laden aller Events aus der DB
         $scope.events = response;
@@ -55,7 +51,7 @@ angular.module('eMergencyApp')
           });
 
         eventService.subscribe(function(e, entry) {
-          $scope.events.push(entry);
+          $scope.events.unshift(entry);
           if(entry.location && entry.location.latitude && entry.location.longitude) {
             $scope.map.markers.push(createMarker(entry));
           }
@@ -81,7 +77,7 @@ angular.module('eMergencyApp')
 
     createMap = function(location) {
       $scope.map.center = {latitude: location.lat, longitude: location.long};
-      $scope.map.zoom = 12;
+      $scope.map.zoom = 10;
       $scope.map.options = {scrollwheel: false};
     }
 
