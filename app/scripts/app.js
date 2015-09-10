@@ -21,9 +21,10 @@ angular
     'LocalStorageModule',
     'angularMoment',
     'infinite-scroll',
-    'scrollable-table'
+    'scrollable-table',
+    'uiGmapgoogle-maps'
   ])
-  .config(function ($routeProvider, localStorageServiceProvider) {
+  .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -35,16 +36,18 @@ angular
           }
         }
       })
-      .when('/about', {
+      .when('/about/', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/register', {
+      .when('/register/', {
         templateUrl: 'views/registration.html',
+        controller: 'RegisterCtrl',
       })
-      .when('/login', {
+      .when('/login/', {
         templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -54,6 +57,12 @@ angular
       .setPrefix('eMergencyApp')
       .setStorageType('localStorage')
       .setNotify(true, true)
+
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });  
   })
   .run(function(amMoment) {
     amMoment.changeLocale('de');
