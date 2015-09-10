@@ -16,7 +16,7 @@
 {{ coords }}
 <div id="map_canvas">
   <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-    <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
+    <ui-gmap-markers idkey='id' models="map.markers" doCluster="true" coords="'self'" icon="'icon'">
         <ui-gmap-windows ng-cloak>
             <div ng-non-bindable>
               {{ content }}
