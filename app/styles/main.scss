@@ -7,3 +7,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
+
+.emergencybtn {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+.page-header {
+  font-weight: bold;
+  text-align: center;
+}

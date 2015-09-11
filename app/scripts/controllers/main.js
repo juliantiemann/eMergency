@@ -13,7 +13,8 @@ angular.module('eMergencyApp')
     $scope.userService = userService;
     $scope.events = [];
     $scope.eventsPaginated = [];
-    $scope.map = {markers:[]};
+    $scope.map = {markers:[], myMarker:[]};
+
 
     $scope.go = function ( path ) {
       $location.path( path );
@@ -71,6 +72,12 @@ angular.module('eMergencyApp')
       $scope.map.center = {latitude: location.lat, longitude: location.long};
       $scope.map.zoom = 10;
       $scope.map.options = {scrollwheel: false};
+      $scope.map.myMarker = {
+        id: "myMarker",
+        latitude: location.lat,
+        longitude: location.long,
+        options: {zIndex: 1000}
+      };
     }
 
     createMarker = function (entry) {
@@ -84,5 +91,4 @@ angular.module('eMergencyApp')
       };
       return marker;
     };
-
   });

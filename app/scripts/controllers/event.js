@@ -38,6 +38,5 @@ angular.module('eMergencyApp')
         icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
       };
       return marker;
-    };
-
+    }
   });

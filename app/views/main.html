@@ -3,12 +3,14 @@
     <div id="map_canvas">
       <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
         <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
-            <ui-gmap-windows ng-cloak>
+            <!-- <ui-gmap-windows ng-cloak>
                 <div ng-non-bindable>
                   {{ content }}
                 </div>
-            </ui-gmap-windows>
+            </ui-gmap-windows> -->
         </ui-gmap-markers>
+        <ui-gmap-marker idkey="map.myMarker.id" coords="map.myMarker" options="map.myMarker.options">
+        </ui-gmap-marker>
       </ui-gmap-google-map>
     </div>
   </div>
@@ -19,4 +21,6 @@
   </div>
 </div>
 
-<a href="" class="btn btn-default" ng-click="addEvent()">Neues Event hinzufügen</a>
+<div class="Eventformular">
+  <div ng-include="'views/eventcreation.html'"></div>
+</div>
