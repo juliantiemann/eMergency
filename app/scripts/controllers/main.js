@@ -8,11 +8,10 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService, uiGmapIsReady) {
-    var createMarker, createMap;
+  .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService) {
+    var createMarker, createMap, userPosition;
     $scope.userService = userService;
     $scope.events = [];
-    $scope.eventsPaginated = [];
     $scope.map = {markers:[], myMarker:[]};
 
 
@@ -43,14 +42,11 @@ angular.module('eMergencyApp')
         //laden aller Events aus der DB
         $scope.events = response;
 
-        uiGmapIsReady.promise()
-          .then(function() {
-            angular.forEach(response, function(entry) {
-              if(entry.location && entry.location.latitude && entry.location.longitude) {
-                $scope.map.markers.push(createMarker(entry));
-              }
-            });
-          });
+        angular.forEach(response, function(entry) {
+          if(entry.location && entry.location.latitude && entry.location.longitude) {
+            $scope.map.markers.push(createMarker(entry));
+          }
+        });
 
         eventService.subscribe(function(e, entry) {
           $scope.events.unshift(entry);
@@ -63,21 +59,25 @@ angular.module('eMergencyApp')
         console.log(error);
       });
 
-    $rootScope.$on('new-location', function() {
-      console.log("update map");
-      createMap(geolocationService.location);
-    });
 
     createMap = function(location) {
-      $scope.map.center = {latitude: location.lat, longitude: location.long};
-      $scope.map.zoom = 10;
-      $scope.map.options = {scrollwheel: false};
-      $scope.map.myMarker = {
-        id: "myMarker",
-        latitude: location.lat,
-        longitude: location.long,
-        options: {zIndex: 1000}
-      };
+      if(location) {
+        $scope.map.center = {latitude: location.lat, longitude: location.long};
+        $scope.map.zoom = 12;
+        $scope.map.options = {scrollwheel: false};
+        userPosition(geolocationService.location);
+      }
+    }
+
+    userPosition = function(location) {
+      if(location) {
+        $scope.map.myMarker = {
+          id: "myMarker",
+          latitude: location.lat,
+          longitude: location.long,
+          options: {zIndex: 1000}
+        };
+      }
     }
 
     createMarker = function (entry) {
@@ -91,4 +91,11 @@ angular.module('eMergencyApp')
       };
       return marker;
     };
+
+    $rootScope.$on('new-location', function() {
+      console.log("update map");
+      createMap(geolocationService.location);
+    });
+
+    createMap(geolocationService.location);
   });

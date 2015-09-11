@@ -9,13 +9,13 @@ describe('Controller: EventCtrl', function () {
     scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    EventCtrl = $controller('EventCtrl', {
-      $scope: scope
-      // place here mocked dependencies
-    });
-  }));
+  // beforeEach(inject(function ($controller, $rootScope) {
+  //   scope = $rootScope.$new();
+  //   EventCtrl = $controller('EventCtrl', {
+  //     $scope: scope
+  //     // place here mocked dependencies
+  //   });
+  // }));
 
   it('should attach a list of awesomeThings to the scope', function () {
     expect(3).toBe(3);

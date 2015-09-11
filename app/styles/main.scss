@@ -8,10 +8,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   display: none !important;
 }
 
-.emergencybtn {
-    max-width: 100%;
-    padding: 5px;
+.navbar-emergency {
+  background: #707070;
+  border-radius: 0;
+  .navbar-nav > li > a {
+    color: white;
   }
+}
+
+.quickevents {
+  background: #d4d4d4;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  .emergencybtn {
+      max-width: 100%;
+      padding: 5px;
+  }
+}
 
 .page-header {
   font-weight: bold;

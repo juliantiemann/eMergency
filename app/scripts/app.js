@@ -1,4 +1,5 @@
 'use strict';
+delete Array.prototype.initialize;
 
 /**
  * @ngdoc overview

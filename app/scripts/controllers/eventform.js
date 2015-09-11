@@ -8,23 +8,16 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('EventFormCtrl', function ($scope, eventService, geolocationService, userService) {
+  .controller('EventFormCtrl', function ($scope, $rootScope, eventService, geolocationService, userService) {
     $scope.userName = userService.user.username;
     $scope.position = geolocationService.location.lat + ', ' + geolocationService.location.long;
     $scope.newEvent = {};
 
     $scope.setMyMarker = function () {
-      geolocationService.get()
-        .then(function(location) {
-          $scope.map.myMarker = {
-            id: "myMarker",
-            latitude: location.lat,
-            longitude: location.long
-          };
-          $scope.position = geolocationService.location.lat + ', ' + geolocationService.location.long;
-        }, function(error) {
-          console.log(error);
-        });
+      geolocationService.update();
+      $rootScope.$on('new-location', function() {
+        $scope.position = geolocationService.location.lat + ', ' + geolocationService.location.long;
+      });
     };
 
     $scope.addEvent = function() {
@@ -43,9 +36,8 @@ angular.module('eMergencyApp')
     $scope.quickEvent = function (type) {
       if(type == 'handwerk') {
         $scope.newEvent.type = "handwerk";
-        $('#description').focus();
-      }
-      else {
+        $('#additional').focus();
+      } else {
         $scope.newEvent = {
           type: type,
           additional: 'Quick Event! EMERGENCY!!!'
