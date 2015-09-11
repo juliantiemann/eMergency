@@ -6,7 +6,7 @@ describe('Service: geolocationService', function () {
   beforeEach(module('eMergencyApp'));
 
   // instantiate service
-  var geoLocService;
+  var geolocationService;
   beforeEach(inject(function (_geolocationService_) {
     geolocationService = _geolocationService_;
   }));
