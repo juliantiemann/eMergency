@@ -43,6 +43,22 @@ angular.module('eMergencyApp')
       return deferred.promise;
     };
     /**
+     * Get single Event by id
+    */
+    this.getById = function(eventId) {
+      var deferred = $q.defer();
+      $db.Event.load(eventId, {depth: true})
+        .then(
+          function(event) {
+            deferred.resolve(event);
+          },
+          function(error) {
+            deferred.reject(error);
+          }
+        );
+      return deferred.promise;
+    };
+    /**
      * Adds a new event.
      * @param {object} an baqend Event Object
      * @return {object} Returns the just added Baqend Object.
@@ -68,13 +84,15 @@ angular.module('eMergencyApp')
      */
     this.update = function(event) {
       return $q(function(resolve, reject) {
-        event.save(
-          function(success){
-            resolve(success);
-          },
-          function(error) {
-            reject(error);
-          });
+        event.save({force:true})
+          .then(
+            function(success){
+              resolve(success);
+            },
+            function(error) {
+              reject(error);
+            }
+          );
       });
     };
     /**

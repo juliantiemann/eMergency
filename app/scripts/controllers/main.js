@@ -8,12 +8,16 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $db, userService, eventService, geolocationService, uiGmapIsReady) {
+  .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService, uiGmapIsReady) {
     var createMarker, createMap;
     $scope.userService = userService;
     $scope.events = [];
     $scope.eventsPaginated = [];
     $scope.map = {markers:[]};
+
+    $scope.go = function ( path ) {
+      $location.path( path );
+    };
 
     $scope.addEvent = function() {
       eventService.add({});

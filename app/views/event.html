@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-8">
+    <div id="map_canvas">
+      <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+        <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
+        </ui-gmap-markers>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+  <div class="col-md-4  ">
+    {{ event }}
+    <input type="checkbox" ng-model="event.done" ng-change="update(event)"/>
+  </div>
+</div>

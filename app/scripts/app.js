@@ -49,6 +49,15 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/event/:id', {
+        templateUrl: 'views/event.html',
+        controller: 'EventCtrl',
+        resolve: {
+          $db: function($db) {
+            return $db.ready();
+          }
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -60,7 +69,7 @@ angular
 
     uiGmapGoogleMapApiProvider.configure({
       libraries: 'weather'
-    });  
+    });
   })
   .run(function(amMoment) {
     amMoment.changeLocale('de');
