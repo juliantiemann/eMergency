@@ -55,6 +55,8 @@ angular.module('eMergencyApp')
               time: timestamp,
               error:0
             };
+            _this.location = location;
+            $rootScope.$emit('new-location');
             localStorageService.set('geoLoc', location);
             deferred.resolve(location);
           },
