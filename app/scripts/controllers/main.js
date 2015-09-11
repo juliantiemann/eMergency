@@ -71,7 +71,8 @@ angular.module('eMergencyApp')
       $scope.map.myMarker = {
         id: "myMarker",
         latitude: location.lat,
-        longitude: location.long
+        longitude: location.long,
+        options: {zIndex: 1000}
       };
     }
 
