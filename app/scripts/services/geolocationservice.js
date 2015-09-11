@@ -23,7 +23,11 @@ angular.module('eMergencyApp')
      * 3 = error, position not accurate
      */
     this.get = function() {
-      return this.getBrowser();
+      this.getStorage();
+      this.getBrowser();
+    };
+    this.update = function() {
+      this.getBrowser();
     };
     /**
      * @ngdoc method
@@ -37,42 +41,30 @@ angular.module('eMergencyApp')
      * 3 = error, position not accurate
      */
     this.getBrowser = function() {
-      var self = this;
-      var deferred = $q.defer();
       var timestamp = new Date();
-      var location = self.getStorage();
-      var time = new Date(location.time);
-      if ((timestamp - time) > 900000 ){
-        location.error = 2;
-      }
       geolocation.getLocation()
         .then(
           function(data){
-            console.log("got location");
             location = {
               lat:data.coords.latitude,
               long:data.coords.longitude,
               time: timestamp,
               error:0
             };
+            localStorageService.set('geoLoc', location);
             _this.location = location;
             $rootScope.$emit('new-location');
-            localStorageService.set('geoLoc', location);
-            deferred.resolve(location);
           },
           function(error){
-            location = self.getIp()
+            location = _this.getIp()
               .then(
                 function(location) {
-                  deferred.resolve(location);
-                },
-                function(error) {
-                  deferred.reject(error);
+                  _this.location = location;
+                  $rootScope.$emit('new-location');
                 }
               );
           }
         );
-      return deferred.promise;
     };
     /**
      * @ngdoc method
@@ -84,23 +76,11 @@ angular.module('eMergencyApp')
      * 1 = eroor, no possition provided
      */
     this.getStorage = function() {
-      var timestamp = new Date('01/12/1984');
-      var location = {};
-      return $q(function(resolve, reject) {
-        if(localStorageService.get('geoLoc')) {
-          location = localStorageService.get('geoLoc');
-          resolve(location);
-        }
-        else {
-          location = {
-            lat:0,
-            long:0,
-            time:timestamp,
-            error:1
-          };
-          reject(location);
-        }
-      });
+      if(localStorageService.get('geoLoc')) {
+        location = localStorageService.get('geoLoc');
+        _this.location = location;
+        $rootScope.$emit('new-location');
+      }
     };
     /**
      * @ngdoc method
@@ -114,41 +94,19 @@ angular.module('eMergencyApp')
      * 3 = error, position not accurate
      */
     this.getIp = function() {
-      var timestamp = new Date();
-      var location = {};
-      return $http.get('http://ipinfo.io/json')
-      .then(function(response) {
-        var loc = response.data.loc.split(',');
-        location = {
-          lat:loc[0],
-          long:loc[1],
-          time:timestamp,
-          error:3
-        }
-        return location;
-      }, function(error) {
-        location = {
-          lat:0,
-          long:0,
-          time:timestamp,
-          error:1
-        };
-        return location;
-      });
+      $http.get('http://ipinfo.io/json')
+        .then(function(response) {
+          var loc = response.data.loc.split(',');
+          var location = {
+            lat: loc[0],
+            long: loc[1],
+            time: new Date(),
+            error: 3
+          }
+          _this.location = location;
+          $rootScope.$emit('new-location');
+        });
     };
 
-    this.getStorage()
-      .then(function(location) {
-        _this.location = location;
-        $rootScope.$emit('new-location');
-      });
-
-    this.get()
-      .then(function(location) {
-        _this.location = location;
-        $rootScope.$emit('new-location');
-      }, function(error) {
-          console.log(error);
-      });
-
+    this.get();
   });

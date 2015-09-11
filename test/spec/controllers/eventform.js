@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: EventCtrl', function () {
+describe('Controller: EventFormCtrl', function () {
 
   // load the controller's module
   beforeEach(module('eMergencyApp'));
 
-  var EventCtrl,
+  var EventFormCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   // beforeEach(inject(function ($controller, $rootScope) {
   //   scope = $rootScope.$new();
-  //   EventCtrl = $controller('EventCtrl', {
+  //   EventFormCtrl = $controller('EventFormCtrl', {
   //     $scope: scope
   //     // place here mocked dependencies
   //   });

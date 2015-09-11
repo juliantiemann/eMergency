@@ -1,4 +1,5 @@
 'use strict';
+delete Array.prototype.initialize;
 
 /**
  * @ngdoc overview
@@ -49,8 +50,14 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
-      .when('/creation', {
-        templateUrl: 'views/eventcreation.html',
+      .when('/event/:id', {
+        templateUrl: 'views/event.html',
+        controller: 'EventCtrl',
+        resolve: {
+          $db: function($db) {
+            return $db.ready();
+          }
+        }
       })
       .otherwise({
         redirectTo: '/'
@@ -63,7 +70,7 @@ angular
 
     uiGmapGoogleMapApiProvider.configure({
       libraries: 'weather'
-    });  
+    });
   })
   .run(function(amMoment) {
     amMoment.changeLocale('de');

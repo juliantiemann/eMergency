@@ -8,50 +8,35 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('EventCtrl', function ($scope, eventService, geolocationService, userService) {
-    $scope.userName = userService.user.username;
-    $scope.position = geolocationService.location.lat + ', ' + geolocationService.location.long;
-    $scope.newEvent = {};
+  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService) {
+    var createMarker, createMap;
+    $scope.map = {markers:[]};
+    $scope.event = {};
 
-    $scope.setMyMarker = function () {
-      geolocationService.get()
-        .then(function(location) {
-          $scope.map.myMarker = {
-            id: "myMarker",
-            latitude: location.lat,
-            longitude: location.long
-          };
-          $scope.position = geolocationService.location.lat + ', ' + geolocationService.location.long;
-        }, function(error) {
-          console.log(error);
-        });
-    };
+    $scope.update = function(event) {
+      eventService.update(event);
+    }
 
-    $scope.addEvent = function() {
-      var newEvent = {
-        type: eventService.eventTypes[$scope.newEvent.type],
-        additional: $scope.newEvent.additional
+    eventService.getById($routeParams.id)
+      .then(function(event) {
+        createMap(geolocationService.location);
+        $scope.map.markers.push(createMarker(event));
+        $scope.event = event;
+      });
+
+    createMap = function(location) {
+      $scope.map.center = {latitude: location.lat, longitude: location.long};
+      $scope.map.zoom = 10;
+      $scope.map.options = {scrollwheel: false};
+    }
+
+    createMarker = function (entry) {
+      var marker = {
+        id: entry.id,
+        latitude: entry.location.latitude,
+        longitude: entry.location.longitude,
+        icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
       };
-      eventService.add(newEvent);
-      $scope.newEvent = {};
+      return marker;
     }
-
-    $scope.cancel = function() {
-      $scope.newEvent = {};
-    }
-
-    $scope.quickEvent = function (type) {
-      if(type == 'handwerk') {
-        $scope.newEvent.type = "handwerk";
-        $('#description').focus();
-      }
-      else {
-        $scope.newEvent = {
-          type: type,
-          additional: 'Quick Event! EMERGENCY!!!'
-        };
-        $scope.addEvent();
-      }
-    };
-
   });

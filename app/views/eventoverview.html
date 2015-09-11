@@ -7,7 +7,7 @@
       <th width="21%">erledigt</th>
     </tr></thead>
     <tbody>
-      <tr ng-switch on="event.type.bezeichnung" ng-repeat="event in events | orderBy:'-date'">
+      <tr ng-switch on="event.type.bezeichnung" ng-repeat="event in events | orderBy:'-date'" ng-click="go('/event/{{ event.id }}')">
         <td>
           <img ng-switch-when="personenschaden" ng-src="images/herz.svg" />
           <img ng-switch-when="feuer" ng-src="images/feuer.svg" />
