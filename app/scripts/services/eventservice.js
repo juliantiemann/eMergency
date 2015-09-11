@@ -8,7 +8,7 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('eventService', function ($rootScope, $q, $db) {
+  .service('eventService', function ($rootScope, $q, $db, userService, geolocationService) {
     var _this = this;
     this.eventTypes = {};
     /**
@@ -49,7 +49,8 @@ angular.module('eMergencyApp')
      */
     this.add = function(newEvent) {
       newEvent.date = new Date();
-      newEvent.type = this.eventTypes["unfall"];
+      newEvent.user = userService.user;
+      newEvent.location = geolocationService.location.lat + ";" + geolocationService.location.long;
       return $q(function(resolve, reject) {
         $db.Event(newEvent).insert(
           function(success){

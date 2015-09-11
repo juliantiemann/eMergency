@@ -8,18 +8,15 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('MainCtrl', function ($scope, $db, userService, eventService, geoLocService, uiGmapIsReady) {
+  .controller('MainCtrl', function ($scope, $rootScope, $db, userService, eventService, geolocationService, uiGmapIsReady) {
     var createMarker, createMap;
     $scope.userService = userService;
     $scope.events = [];
     $scope.eventsPaginated = [];
-    $scope.coords = {};
     $scope.map = {markers:[]};
 
     $scope.addEvent = function() {
-      var bla = {location:$scope.coords.lat + ";" + $scope.coords.long};
-      console.log(bla);
-      eventService.add(bla);
+      eventService.add({});
     }
 
     $scope.paginateEvents = function() {
@@ -61,19 +58,10 @@ angular.module('eMergencyApp')
         console.log(error);
       });
 
-    geoLocService.getStorage()
-      .then(function(location) {
-        $scope.coords = location;
-        createMap(location);
-      });
-
-    geoLocService.get()
-      .then(function(location) {
-        $scope.coords = location
-        createMap(location);
-      }, function(error) {
-          console.log(error);
-      });
+    $rootScope.$on('new-location', function() {
+      console.log("update map");
+      createMap(geolocationService.location);
+    });
 
     createMap = function(location) {
       $scope.map.center = {latitude: location.lat, longitude: location.long};

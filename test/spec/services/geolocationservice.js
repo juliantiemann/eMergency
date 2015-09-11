@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Service: geoLocService', function () {
+describe('Service: geolocationService', function () {
 
   // load the service's module
   beforeEach(module('eMergencyApp'));
 
   // instantiate service
   var geoLocService;
-  beforeEach(inject(function (_geoLocService_) {
-    geoLocService = _geoLocService_;
+  beforeEach(inject(function (_geolocationService_) {
+    geolocationService = _geolocationService_;
   }));
 
   // it('should get the Possition by Browser API', function (done) {
@@ -50,7 +50,7 @@ describe('Service: geoLocService', function () {
   //     });
   // });
   it('should do something', function () {
-    expect(!!geoLocService).toBe(true);
+    expect(!!geolocationService).toBe(true);
   });
 
 });
