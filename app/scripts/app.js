@@ -49,6 +49,9 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/creation', {
+        templateUrl: 'views/eventcreation.html',
+      })
       .otherwise({
         redirectTo: '/'
       });

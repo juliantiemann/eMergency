@@ -1,0 +1,70 @@
+<div class="container-fluid" ng-controller="EventCtrl">
+  <div class="row">
+    <form ng-submit="event()">
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click="quickEvent('personenschaden')" class="btn btn-danger"><img class="emergencybtn" src="images/buttons/herz.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click="quickEvent('feuer')" class="btn btn-warning"><img class="emergencybtn" src="images/buttons/feuer.png"></button></div>
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click="quickEvent('unfall')" class="btn btn-success"><img class="emergencybtn" src="images/buttons/unfall.png"></button></div>
+    </form>
+    <form ng-submit="event()">
+      <div class="col-sm-3 col-xs-3 col-md-3 emergencybtn"><button type="button" ng-click="quickEvent('handwerk')" class="btn btn-primary"><img class="emergencybtn" src="images/buttons/hammer.png"></button></div>
+    </form>
+  </div>
+
+  <div class="page-header">
+    <h1 class="page-header">Neues Ereignis melden</h1>
+  </div>
+
+  <!-- Eventtype -->
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Ereignistyp</span>
+          <select ng-model="eventType" class="form-control">
+            <option>personenschaden</option>
+            <option>feuer</option>
+            <option>unfall</option>
+            <option>handwerk</option>
+          </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- get location -->
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12">
+      <div class="input-group">
+        <span class="input-group-addon">Ort</span>
+        <input type="text" class="form-control" ng-model="position" readonly>
+        <button type="button" ng-click="setMyMarker()" class="btn btn-default glyphicon glyphicon-map-marker"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User -->
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">gemeldet von</span>
+        <input type="text" class="form-control" ng-model="userName" readonly></div>
+      </div>
+  </div>
+
+  <!-- event discription -->
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12">
+      <div class="input-group">
+        <span class="input-group-addon">Beschreibung</span>
+        <textarea id="description" class="form-control" rows="4"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- abort and submit buttons -->
+  <div class="row">
+    <div class="col-sm-2 col-xs-2 col-md-2"></div>
+    <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="button" class="btn btn-default">Abbrechen</button></div>
+    <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="button" class="btn btn-danger">Ereignis melden</button></div>
+    <div class="col-sm-2 col-xs-2 col-md-2"></div>
+  </div>
+</div>
+<!-- end gridlayout -->
