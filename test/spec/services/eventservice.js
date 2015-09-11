@@ -7,24 +7,31 @@ describe('Service: eventService', function () {
 
   // instantiate service
   var eventService;
+
   beforeEach(inject(function (_eventService_) {
     eventService = _eventService_;
   }));
 
-  it('should persist a new event in the database', function () {
-    var test = this;
-    var persistentEvent;
-    eventService.add({})
-      .then(
-        function(response) {
-          persistentEvent = response;
-          persistentEvent.delete();
-          test.success();
-        },
-        function(error) {
-          test.fail();
-        }
-      );
+  it('should persist a new event in the database', inject(function ($db) {
+    $db.ready().then(function() {
+      var test = this;
+      var persistentEvent;
+      eventService.add({})
+        .then(
+          function(response) {
+            persistentEvent = response;
+            persistentEvent.delete();
+            test.success();
+          },
+          function(error) {
+            test.fail();
+          }
+        );
+    });
+  }));
+
+  it('should do something', function () {
+    expect(!!eventService).toBe(true);
   });
 
 });

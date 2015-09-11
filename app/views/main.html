@@ -1,21 +1,28 @@
-<div class="baqend">
-  <p ng-repeat="event in events track by event.id">
-    Event: {{ event }}
-  </p>
-	<a href="" class="btn btn-default" ng-click="addEvent()">Neues Event hinzufügen</a>
+<div class="row">
+  <div class="col-md-8">
+    <div id="map_canvas">
+      <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+        <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
+            <ui-gmap-windows ng-cloak>
+                <div ng-non-bindable>
+                  {{ content }}
+                </div>
+            </ui-gmap-windows>
+        </ui-gmap-markers>
+        <ui-gmap-marker idkey="map.myMarker.id" coords="map.myMarker" options="map.myMarker.options">
+        </ui-gmap-marker>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+  <div class="col-md-4  ">
+    <div class="eventtabelle">
+      <div ng-include="'views/eventoverview.html'"></div>
+    </div>
+  </div>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
+<hr />
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="Eventformular">
+  <div ng-include="'views/eventcreation.html'"></div>
 </div>
