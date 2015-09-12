@@ -56,6 +56,7 @@ angular.module('eMergencyApp')
             $rootScope.$emit('new-location');
           },
           function(error){
+            alert(error);
             location = _this.getIp()
               .then(
                 function(location) {
