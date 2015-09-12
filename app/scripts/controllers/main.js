@@ -85,7 +85,7 @@ angular.module('eMergencyApp')
         id: entry.id,
         latitude: entry.location.latitude,
         longitude: entry.location.longitude,
-        icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
+        icon: 'images/map/' + entry.type.bezeichnung + '.png',
         content: entry.type.bezeichnung + '<br />' + entry.additional,
         showWindow: false
       };
