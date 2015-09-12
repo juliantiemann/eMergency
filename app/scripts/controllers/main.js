@@ -93,7 +93,6 @@ angular.module('eMergencyApp')
     };
 
     $rootScope.$on('new-location', function() {
-      console.log("update map");
       createMap(geolocationService.location);
     });
 
