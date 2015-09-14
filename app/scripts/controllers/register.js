@@ -14,7 +14,7 @@ angular.module('eMergencyApp')
     $scope.register = function(user,password) {
       userService.register(user,password)
         .then(function(success){
-          $location.path('#/');
+          $location.path( '/' );
         }, function(error) {
           console.log(error);
         });
