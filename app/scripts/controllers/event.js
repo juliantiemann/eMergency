@@ -37,16 +37,16 @@ angular.module('eMergencyApp')
         commentService.load(event)
           .then(function(comments) {
             angular.forEach(comments, function(comment) {
-              if(comment.user.id == userService.user.id) {
-                comment.user = userService.user;
-                $scope.comments.push(comment);
-              } else {
-                comment.user.load()
-                  .then(function(user) {
-                    comment.user = user;
-                    $scope.comments.push(comment);
-                  });
-              }
+              commentService.loadUser(comment)
+                .then(function(comment) {
+                  $scope.comments.push(comment);
+                });
+            });
+            commentService.subscribe(event, function(e, comment) {
+              commentService.loadUser(comment)
+                .then(function(comment) {
+                  $scope.comments.unshift(comment);
+                });
             });
           });
       });

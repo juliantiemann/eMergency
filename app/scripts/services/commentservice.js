@@ -8,7 +8,7 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('commentService', function ($q, $db, userService) {
+  .service('commentService', function ($rootScope, $q, $db, userService) {
     /**
      * Get all Comments for one event
      */
@@ -69,11 +69,28 @@ angular.module('eMergencyApp')
      */
     this.subscribe = function(event, callback) {
       var handler = $rootScope.$on('new-comment', callback);
-      var stream = $db.Comment.find().stream(false);
+      var stream = $db.Comment.find().equal('event', event).stream(false);
       stream.on("all", function(e) {
         var comment = e.data;
         $rootScope.$emit('new-comment', comment);
         $rootScope.$apply();
       });
     };
+
+    this.loadUser = function(comment) {
+      var deferred = $q.defer();
+      if(comment.user.id == userService.user.id) {
+        comment.user = userService.user;
+        deferred.resolve(comment);
+      } else {
+        comment.user.load()
+          .then(function(user) {
+            comment.user = user;
+            deferred.resolve(comment);
+          }, function() {
+            deferred.reject(comment);
+          });
+      }
+      return deferred.promise;
+    }
   });
