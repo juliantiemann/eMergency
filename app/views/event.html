@@ -17,7 +17,7 @@
 
 <div class="row">
   <div ng-repeat="comment in comments" class="col-xs-12">
-    {{ comment.user.username }} schrieb "{{ comment.message }}"
+    {{ comment.date | amTimeAgo }} - {{ comment.user.username }} schrieb "{{ comment.message }}"
     <hr />
   </div>
 </div>
