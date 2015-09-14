@@ -23,7 +23,8 @@ angular
     'angularMoment',
     'infinite-scroll',
     'scrollable-table',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'validation.match'
   ])
   .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider
@@ -58,6 +59,10 @@ angular
             return $db.ready();
           }
         }
+      })
+      .when('/profile/', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
       })
       .otherwise({
         redirectTo: '/'

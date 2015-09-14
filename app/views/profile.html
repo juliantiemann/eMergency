@@ -1,0 +1,60 @@
+<div class="container-fluid" ng-controller="ProfileCtrl">
+    <form name="profileForm">
+      <div class="page-header">
+        <h1 class="page-header">Profil bearbeiten</h1>
+      </div>
+
+      <!--Name-->
+      <div class="row">
+          <div class="col-xs-11">
+              <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" ng-model="proile.name" placeholder="Bitte gib einen Namen ein..."></input>
+              </div>
+          </div>
+      </div>
+      <!--E-Mail-->
+      <div class="row">
+          <div class="col-xs-11">
+              <div class="form-group">
+                  <label>E-Mail / Anmeldung</label>
+                  <input type="text" class="form-control" ng-model="profile.username" placeholder="Bitte gib einen Namen ein..."></input>
+              </div>
+          </div>
+      </div>
+      <!--Passwort-->
+      <div class="row">
+          <div class="col-xs-11">
+              <div class="form-group">
+                  <label>Naues Passwort</label>
+                  <input type="password" class="password form-control" ng-model="profile.newPassword" placeholder="Bitte gib einen neues Passwort ein..." required/>
+              </div>
+          </div>
+      </div>
+      <!--Passwort wiederholen-->
+      <div class="row">
+          <div class="col-xs-11">
+              <div class="form-group">
+                  <label>Neues Passwort wiederholen</label>
+                  <input type="password" class="password_confirm form-control" ng-model="profile.confirmPassword" placeholder="Bitte wiederhole dein neues Passwort..." name="confirmPassword" match="profile.newPassword"/>
+              </div>
+          </div>
+      </div>
+      <div class="row" data-ng-show="profileForm.confirmPassword.$error.match">
+          <div class="col-xs-11">
+            Passwörter stimmen nicht überein!
+          </div>
+      </div>
+
+      <div class="row">
+          <div class"col-sm-2 col-xs-2 col-md-2"></div>
+          <div class"col-sm-4 col-xs-4 col-md-4">
+              <button type="button" class="btn btn-danger btn-block">Abbrechen</button>
+          </div>
+          <div class"col-sm-4 col-xs-4 col-md-4">
+              <button type="submit" class="btn btn-default btn-block">Speichern</button>
+          </div>
+          <div class"col-xs-2 col-xs-2 col-md-2"></div>
+      </div>
+    </form>
+</div>
