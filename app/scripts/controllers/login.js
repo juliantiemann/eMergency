@@ -8,7 +8,7 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('LoginCtrl', function ($scope, userService, $location) {
+  .controller('LoginCtrl', function ($rootScope, $scope, userService, $location) {
     $scope.user = '';
     $scope.password = '';
     $scope.login = function(user,password) {

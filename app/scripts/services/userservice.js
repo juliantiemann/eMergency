@@ -9,7 +9,7 @@
  */
 angular.module('eMergencyApp')
   .service('userService', function ($q, $db, $rootScope) {
-    var self = this;
+    var _this = this;
     this.guest = null;
     this.user = {};
     /**
@@ -19,7 +19,9 @@ angular.module('eMergencyApp')
     this.getCurrentUser = function() {
       if($db.User.me) {
         this.user = $db.User.me;
+        this.guest = false;
       } else {
+        this.user = {};
         this.guest = true;
       }
     };
@@ -35,10 +37,12 @@ angular.module('eMergencyApp')
       $db.User.register(newUser, password)
         .then(
           function(success) {
+            _this.getCurrentUser();
             deferred.resolve(success);
             $rootScope.$digest();
           },
           function(error) {
+            _this.getCurrentUser();
             deferred.reject(error);
             $rootScope.$digest();
           }
@@ -56,10 +60,12 @@ angular.module('eMergencyApp')
       $db.User.login(user, password)
         .then(
           function(success) {
+            _this.getCurrentUser();
             deferred.resolve(success);
             $rootScope.$digest();
           },
           function(error) {
+            _this.getCurrentUser();
             deferred.reject(error);
             $rootScope.$digest();
           }
@@ -75,10 +81,12 @@ angular.module('eMergencyApp')
       $db.User.logout()
         .then(
           function(success) {
+            _this.getCurrentUser();
             deferred.resolve(success);
             $rootScope.$digest();
           },
           function(error) {
+            _this.getCurrentUser();
             deferred.reject(error);
             $rootScope.$digest();
           }
@@ -87,7 +95,7 @@ angular.module('eMergencyApp')
     };
 
     $db.ready(function() {
-      self.getCurrentUser();
+      _this.getCurrentUser();
       $rootScope.$apply();
     });
   });
