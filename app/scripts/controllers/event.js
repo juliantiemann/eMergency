@@ -8,7 +8,7 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService, commentService, userService) {
+  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService, commentService, userService, Notification) {
     var createMarker, createMap;
     $scope.map = {markers:[]};
     $scope.event = {};
@@ -16,15 +16,20 @@ angular.module('eMergencyApp')
     $scope.comment = {};
 
     $scope.update = function(event) {
-      eventService.update(event);
+      eventService.update(event)
+        .then(function() {
+          Notification.success('Dein Event wurde aktualisiert');
+        });
     }
 
     $scope.addComment = function(comment) {
       comment.event = $scope.event;
       commentService.add(comment)
         .then(function() {
+          Notification.success('Kommentar abgeschickt');
           $scope.comment = {};
         }, function() {
+          Notification.error('Kommentar konnte nicht abgeschickt werden. Versuch es noch einmal.');
           $scope.comment = {};
         });
     }

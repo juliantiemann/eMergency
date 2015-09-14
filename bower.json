@@ -16,7 +16,8 @@
     "angular-google-maps": "*",
     "angular-moment": "*",
     "ngInfiniteScroll": "*",
-    "angular-scrollable-table": "*"
+    "angular-scrollable-table": "*",
+    "angular-ui-notification": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"

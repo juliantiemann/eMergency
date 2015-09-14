@@ -8,7 +8,7 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('EventFormCtrl', function ($scope, $rootScope, eventService, geolocationService, userService) {
+  .controller('EventFormCtrl', function ($scope, $rootScope, eventService, geolocationService, userService, Notification) {
     $scope.userName = userService.user.username;
     $scope.position = geolocationService.location.lat + ', ' + geolocationService.location.long;
     $scope.newEvent = {};
@@ -25,7 +25,11 @@ angular.module('eMergencyApp')
         type: eventService.eventTypes[$scope.newEvent.type],
         additional: $scope.newEvent.additional
       };
-      eventService.add(newEvent);
+      eventService.add(newEvent)
+        .then(function() {
+          $scope.newEvent = {};
+          Notification.success('Alarm abgeschickt');
+        });
       $scope.newEvent = {};
     }
 

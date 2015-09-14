@@ -23,7 +23,8 @@ angular
     'angularMoment',
     'infinite-scroll',
     'scrollable-table',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'ui-notification'
   ])
   .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider
