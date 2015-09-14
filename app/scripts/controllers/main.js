@@ -8,7 +8,7 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService) {
+  .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService, Notification) {
     var createMarker, createMap, userPosition;
     $scope.userService = userService;
     $scope.events = [];
@@ -18,10 +18,6 @@ angular.module('eMergencyApp')
     $scope.go = function ( path ) {
       $location.path( path );
     };
-
-    $scope.addEvent = function() {
-      eventService.add({});
-    }
 
     $scope.paginateEvents = function() {
       var lastTimestamp = new Date($scope.events[$scope.events.length-1].date).getTime();
