@@ -18,7 +18,7 @@ angular.module('eMergencyApp')
     $scope.logout = function() {
       userService.logout()
         .then(function(success) {
-          window.location.href = '/';
+          $location.path( '/' );
         }, function(error) {
           console.log(error);
         })
