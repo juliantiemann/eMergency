@@ -8,13 +8,25 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService) {
+  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService, commentService, userService) {
     var createMarker, createMap;
     $scope.map = {markers:[]};
     $scope.event = {};
+    $scope.comments = [];
+    $scope.comment = {};
 
     $scope.update = function(event) {
       eventService.update(event);
+    }
+
+    $scope.addComment = function(comment) {
+      comment.event = $scope.event;
+      commentService.add(comment)
+        .then(function() {
+          $scope.comment = {};
+        }, function() {
+          $scope.comment = {};
+        });
     }
 
     eventService.getById($routeParams.id)
@@ -22,6 +34,21 @@ angular.module('eMergencyApp')
         createMap(geolocationService.location);
         $scope.map.markers.push(createMarker(event));
         $scope.event = event;
+        commentService.load(event)
+          .then(function(comments) {
+            angular.forEach(comments, function(comment) {
+              if(comment.user.id == userService.user.id) {
+                comment.user = userService.user;
+                $scope.comments.push(comment);
+              } else {
+                comment.user.load()
+                  .then(function(user) {
+                    comment.user = user;
+                    $scope.comments.push(comment);
+                  });
+              }
+            });
+          });
       });
 
     createMap = function(location) {

@@ -8,13 +8,14 @@
  * Service in the eMergencyApp.
  */
 angular.module('eMergencyApp')
-  .service('commentService', function ($q, userService) {
+  .service('commentService', function ($q, $db, userService) {
     /**
      * Get all Comments for one event
      */
     this.load = function(event){
       var deferred = $q.defer();
       $db.Comment.find()
+        .equal('event', event)
         .resultList()
           .then(
             function(response) {

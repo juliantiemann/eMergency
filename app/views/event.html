@@ -12,3 +12,22 @@
     <input type="checkbox" ng-model="event.done" ng-change="update(event)"/>
   </div>
 </div>
+
+<hr />
+
+<div class="row">
+  <div ng-repeat="comment in comments" class="col-xs-12">
+    {{ comment.user.username }} schrieb "{{ comment.message }}"
+    <hr />
+  </div>
+</div>
+
+<div class="row">
+  <form ng-submit="addComment(comment)">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Kommentar</label>
+      <textarea ng-model="comment.message" class="form-control" id="exampleInputEmail1" placeholder=""></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
