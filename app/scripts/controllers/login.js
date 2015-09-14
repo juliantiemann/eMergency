@@ -8,13 +8,13 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('LoginCtrl', function ($scope, userService) {
+  .controller('LoginCtrl', function ($scope, userService, $location) {
     $scope.user = '';
     $scope.password = '';
     $scope.login = function(user,password) {
       userService.login(user,password)
         .then(function(success){
-          window.location.href = '/';
+          $location.path('#/');
         }, function(error) {
           console.log(error);
         });
