@@ -24,7 +24,8 @@ angular
     'infinite-scroll',
     'scrollable-table',
     'uiGmapgoogle-maps',
-    'validation.match'
+    'validation.match',
+    'ui-notification'
   ])
   .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider

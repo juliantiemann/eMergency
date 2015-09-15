@@ -8,13 +8,30 @@
  * Controller of the eMergencyApp
  */
 angular.module('eMergencyApp')
-  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService) {
+  .controller('EventCtrl', function ($scope, $routeParams, $db, geolocationService, eventService, commentService, userService, Notification) {
     var createMarker, createMap;
     $scope.map = {markers:[]};
     $scope.event = {};
+    $scope.comments = [];
+    $scope.comment = {};
 
     $scope.update = function(event) {
-      eventService.update(event);
+      eventService.update(event)
+        .then(function() {
+          Notification.success('Dein Event wurde aktualisiert');
+        });
+    }
+
+    $scope.addComment = function(comment) {
+      comment.event = $scope.event;
+      commentService.add(comment)
+        .then(function() {
+          Notification.success('Kommentar abgeschickt');
+          $scope.comment = {};
+        }, function() {
+          Notification.error('Kommentar konnte nicht abgeschickt werden. Versuch es noch einmal.');
+          $scope.comment = {};
+        });
     }
 
     eventService.getById($routeParams.id)
@@ -22,6 +39,21 @@ angular.module('eMergencyApp')
         createMap(geolocationService.location);
         $scope.map.markers.push(createMarker(event));
         $scope.event = event;
+        commentService.load(event)
+          .then(function(comments) {
+            angular.forEach(comments, function(comment) {
+              commentService.loadUser(comment)
+                .then(function(comment) {
+                  $scope.comments.push(comment);
+                });
+            });
+            commentService.subscribe(event, function(e, comment) {
+              commentService.loadUser(comment)
+                .then(function(comment) {
+                  $scope.comments.unshift(comment);
+                });
+            });
+          });
       });
 
     createMap = function(location) {
@@ -35,7 +67,7 @@ angular.module('eMergencyApp')
         id: entry.id,
         latitude: entry.location.latitude,
         longitude: entry.location.longitude,
-        icon: 'images/eventtype/' + entry.type.bezeichnung + '.png',
+        icon: 'images/map/' + entry.type.bezeichnung + '.png',
       };
       return marker;
     }
