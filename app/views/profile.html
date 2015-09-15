@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="ProfileCtrl">
+<div class="container-fluid" ng-controller="ProfileCtrl" ng-if="userService.user.username">
     <form name="profileForm">
       <div class="page-header">
         <h1 class="page-header">Profil bearbeiten</h1>
@@ -27,7 +27,7 @@
           <div class="col-xs-11">
               <div class="form-group">
                   <label>Naues Passwort</label>
-                  <input type="password" class="password form-control" ng-model="profile.newPassword" placeholder="Bitte gib einen neues Passwort ein..." required/>
+                  <input type="password" class="password form-control" ng-model="profile.newPassword" placeholder="Bitte gib einen neues Passwort ein..."/>
               </div>
           </div>
       </div>
@@ -57,4 +57,10 @@
           <div class"col-xs-2 col-xs-2 col-md-2"></div>
       </div>
     </form>
+</div>
+
+<div class="container-fluid" ng-if="userService.guest">
+  <div class="row" height="100%">
+    <a ng-href="#/register" class="btn btn-success">Jetzt Mithelfen</a>
+  </div>
 </div>
