@@ -30,3 +30,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   font-weight: bold;
   text-align: center;
 }
+
+#evenform {
+  position: fixed;
+  bottom: 0;
+  max-height: 0;
+  transition: all 0.5s ease;
+  &.collapsed {
+    max-height: 100%;
+  }
+}
