@@ -32,6 +32,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   text-align: center;
 }
 
+.row #eventdetails {
+  label {
+    margin-top: 13px;
+  }
+  textarea{
+    resize: none;
+  }
+}
+
 .ng-invalid{
     border-color: red;
 }
