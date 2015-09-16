@@ -13,7 +13,6 @@ angular.module('eMergencyApp')
     $scope.password = {};
 
     var update = function() {
-      debugger
       userService.update(userService.user)
         .then(function() {
           Notification.success('Profil gespeichert');

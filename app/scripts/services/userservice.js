@@ -96,7 +96,8 @@ angular.module('eMergencyApp')
 
     this.update = function(user) {
       return $q(function(resolve, reject) {
-        user.save({force:true})
+        user._metadata.writeAccess();
+        user.save()
           .then(
             function(success){
               resolve(success);
