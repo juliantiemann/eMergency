@@ -10,6 +10,9 @@
 angular.module('eMergencyApp')
   .controller('HeaderCtrl', function ($scope, $db, $location, userService) {
     $scope.userService = userService;
+    $scope.notifications = [
+      /*{title: 'Tolles Event1', eventId :'1'}*/
+    ];
 
     $scope.isActive = function (viewLocation) {
       return viewLocation === $location.path();
