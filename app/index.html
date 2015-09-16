@@ -59,6 +59,10 @@
               </li>
             </ul>
 
+            <ul class="nav navbar-nav navbar-right" ng-if="userService.user.gravatar">
+              <li><img gravatar-src="userService.user.username" gravatar-size="50"></li>
+            </ul>
+
             <ul class="nav navbar-form navbar-right" ng-if="userService.guest">
               <a ng-href="#/register" class="btn btn-success">Jetzt Mithelfen</a>
             </ul>
@@ -107,6 +111,7 @@
     <script src="bower_components/angular-scrollable-table/angular-scrollable-table.js"></script>
     <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
     <!-- endbower -->
     <script src="scripts/locale/de.js"></script>
     <!-- endbuild -->

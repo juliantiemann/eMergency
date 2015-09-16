@@ -18,7 +18,8 @@
     "ngInfiniteScroll": "*",
     "angular-scrollable-table": "*",
     "angular-validation-match": "*",
-    "angular-ui-notification": "*"
+    "angular-ui-notification": "*",
+    "angular-gravatar": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"

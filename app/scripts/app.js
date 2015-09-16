@@ -25,7 +25,8 @@ angular
     'scrollable-table',
     'uiGmapgoogle-maps',
     'validation.match',
-    'ui-notification'
+    'ui-notification',
+    'ui.gravatar'
   ])
   .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider
