@@ -1,5 +1,5 @@
-<div class="container-fluid" ng-controller="ProfileCtrl" ng-if="userService.user.username">
-    <form name="profileForm">
+<div class="container-fluid" ng-controller="ProfileCtrl">
+    <form name="profileForm" ng-submit="editUser()" ng-if="userService.user.username">
       <div class="page-header">
         <h1 class="page-header">Profil bearbeiten</h1>
       </div>
@@ -9,7 +9,7 @@
           <div class="col-xs-11">
               <div class="form-group">
                   <label>Name</label>
-                  <input type="text" class="form-control" ng-model="proile.name" placeholder="Bitte gib einen Namen ein..."></input>
+                  <input type="text" class="form-control" ng-model="user.name" placeholder="Bitte gib einen Namen ein..."></input>
               </div>
           </div>
       </div>
@@ -18,7 +18,7 @@
           <div class="col-xs-11">
               <div class="form-group">
                   <label>E-Mail / Anmeldung</label>
-                  <input type="text" class="form-control" ng-model="profile.username" placeholder="Bitte gib einen Namen ein..."></input>
+                  <input type="text" class="form-control" ng-model="user.username" placeholder="Bitte gib einen Namen ein..."></input>
               </div>
           </div>
       </div>
@@ -27,7 +27,7 @@
           <div class="col-xs-11">
               <div class="form-group">
                   <label>Naues Passwort</label>
-                  <input type="password" class="password form-control" ng-model="profile.newPassword" placeholder="Bitte gib einen neues Passwort ein..."/>
+                  <input type="password" class="password form-control" ng-model="user.newPassword" placeholder="Bitte gib einen neues Passwort ein..."/>
               </div>
           </div>
       </div>
@@ -36,31 +36,49 @@
           <div class="col-xs-11">
               <div class="form-group">
                   <label>Neues Passwort wiederholen</label>
-                  <input type="password" class="password_confirm form-control" ng-model="profile.confirmPassword" placeholder="Bitte wiederhole dein neues Passwort..." name="confirmPassword" match="profile.newPassword"/>
+                  <input type="password" class="password_confirm form-control" ng-model="user.confirmPassword" placeholder="Bitte wiederhole dein neues Passwort..." name="confirmPassword" match="profile.newPassword"/>
+              </div>
+              <div class="alert alert-danger" role="alert"  data-ng-show="profileForm.confirmPassword.$error.match">
+                Passwörter stimmen nicht überein!
               </div>
           </div>
       </div>
-      <div class="row" data-ng-show="profileForm.confirmPassword.$error.match">
-          <div class="col-xs-11">
-            Passwörter stimmen nicht überein!
+
+      <h3>Deine Skills</h3>
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">Medezinische Kentnisse</div>
+          <div class="panel-body">
+            <input type="checkbox" ng-model="user.Skills.arzt" /> Arzt / -in<br/>
+            <input type="checkbox" ng-model="user.Skills.pfleger" /> Krankenpfleger / -in<br/>
+            <input type="checkbox" ng-model="user.Skills.ersthelfer" /> Ersthelfer / -in<br/>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">Handwerkliche Kentnisse</div>
+          <div class="panel-body">
+            <input type="checkbox" ng-model="user.Skills.holz" /> Holzverarbeitung<br/>
+            <input type="checkbox" ng-model="user.Skills.gws" /> Sanitär<br/>
+            <input type="checkbox" ng-model="user.Skills.maler" /> Malerarbeiten<br/>
+            <input type="checkbox" ng-model="user.Skills.bau" /> Bau<br/>
+          </div>
+        </div>
       </div>
 
       <div class="row">
-          <div class"col-sm-2 col-xs-2 col-md-2"></div>
-          <div class"col-sm-4 col-xs-4 col-md-4">
-              <button type="button" class="btn btn-danger btn-block">Abbrechen</button>
-          </div>
-          <div class"col-sm-4 col-xs-4 col-md-4">
-              <button type="submit" class="btn btn-default btn-block">Speichern</button>
-          </div>
-          <div class"col-xs-2 col-xs-2 col-md-2"></div>
+        <div class="col-sm-2 col-xs-2 col-md-2"></div>
+        <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="button" class="btn btn-default btn-block" ng-click="cancel()">Abbrechen</button></div>
+        <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="submit" class="btn btn-primary btn-block">Speichern</button></div>
+        <div class="col-sm-2 col-xs-2 col-md-2"></div>
       </div>
+
     </form>
 </div>
 
 <div class="container-fluid" ng-if="userService.guest">
-  <div class="row" height="100%">
-    <a ng-href="#/register" class="btn btn-success">Jetzt Mithelfen</a>
+  <div class="page-header">
+    <h1 class="page-header">Du musst eingeloogt sein, um dein Profil zu bearbeiten</h1>
   </div>
 </div>
