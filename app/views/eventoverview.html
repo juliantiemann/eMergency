@@ -1,4 +1,4 @@
-<scrollable-table watch="events">
+<!-- <scrollable-table watch="events">
   <table class="table table-striped">
     <thead><tr>
       <th width="7%">Typ</th>
@@ -25,4 +25,25 @@
         </td>
       </tfoot>
   </table>
-</scrollable-table>
+</scrollable-table> -->
+
+<ul class="stripedList">
+  <li ng-switch on="event.type.bezeichnung" ng-repeat="event in events | orderBy:'-date'" ng-click="go('/event/{{ event.id }}')">
+    <div class="row">
+      <div class="col-xs-12">
+        <div id=date class="col-xs-10">{{event.date | amTimeAgo}}</div>
+        <div class="col-xs-2"><input type="checkbox" ng-model="event.done" disabled="true"></div>
+      </div>
+      <div class="col-xs-12">
+        <div id="icon" class="col-xs-3">
+          <img ng-switch-when="personenschaden" ng-src="images/herz.svg" />
+          <img ng-switch-when="feuer" ng-src="images/feuer.svg" />
+          <img ng-switch-when="handwerk" ng-src="images/hammer.svg" />
+          <img ng-switch-when="unfall" ng-src="images/unfall.svg" />
+        </div>
+        <div class="col-xs-9">{{event.additional}}</div>
+      </div>
+    </div>
+  </li>
+  <li><button href="" ng-click="paginateEvents()">ältere Ereignisse anzeigen</button></li>
+</ul>
