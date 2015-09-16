@@ -44,3 +44,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .ng-invalid{
     border-color: red;
 }
+
+.badge-notify {
+  background: red;
+  position: relative;
+  top: -65px;
+  left: 25px;
+  font-size: 8px;
+}
+.dropdown-notify {
+  padding: 5px !important;
+  height: 50px;
+  font-size: 30px;
+}
