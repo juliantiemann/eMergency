@@ -7,9 +7,24 @@
       </ui-gmap-google-map>
     </div>
   </div>
-  <div class="col-md-4  ">
-    {{ event }}
-    <input type="checkbox" ng-model="event.done" ng-change="update(event)"/>
+  <div id="eventdetails" class="col-md-4">
+    <div class form-group>
+      <label for="zeit">Zeit</label>
+      <input ng-model="event.date | date: 'dd.MM.yyyy HH:mm'" class="form-control" id="zeit" disabled="true"></input>
+      <label for="typ">Ereignistyp</label>
+      <select ng-model="event.type.bezeichnung" class="form-control" disabled="true">
+        <option value="personenschaden">Personenschaden</option>
+        <option value="feuer">Feuer</option>
+        <option value="unfall">Unfall/Panne</option>
+        <option value="handwerk">Handwerk</option>
+      </select>
+      <label for="user">gemeldet von</label>
+      <input ng-model="event.user.name" class="form-control" id="user" disabled="true"></input>
+      <label for="hinweise">Hinweise</label>
+      <textarea rows="4" ng-model="event.additional" class="form-control" id="hinweise" disabled="true"></textarea>
+      <input type="checkbox" ng-model="event.done" ng-change="update(event)" id="done"></input>
+      <label for="done">erledigt</label>
+    </div>
   </div>
 </div>
 
@@ -26,10 +41,10 @@
   <div class="col-xs-12">
     <form ng-submit="addComment(comment)">
       <div class="form-group">
-        <label for="exampleInputEmail1">Kommentar</label>
-        <textarea ng-model="comment.message" class="form-control" id="exampleInputEmail1" placeholder=""></textarea>
+        <label for="commentfield">Kommentar</label>
+        <textarea ng-model="comment.message" class="form-control" id="commentfield" placeholder=""></textarea>
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">Kommentieren</button>
     </form>
   </div>
 </div>
