@@ -1,48 +1,68 @@
-<div id="eventform" class="container" ng-controller="EventFormCtrl">
-  <div class="row quickevents">
-      <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('personenschaden')" class="btn btn-danger"><img class="emergencybtn" src="images/buttons/herz.png"></button></div>
-      <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('feuer')" class="btn btn-warning"><img class="emergencybtn" src="images/buttons/feuer.png"></button></div>
-      <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('unfall')" class="btn btn-success"><img class="emergencybtn" src="images/buttons/unfall.png"></button></div>
-      <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('handwerk')" class="btn btn-primary"><img class="emergencybtn" src="images/buttons/hammer.png"></button></div>
+<div id="eventformOuter" ng-class="{'collapsed': eventFormCollapsed}" ng-controller="EventFormCtrl">
+  <div class="eventformToggleOuter">
+    <div class="col-xs-12 text-center">
+      <a class="eventformToggleButton" ng-click="eventFormCollapsed = !eventFormCollapsed">
+        +
+      </a>
+    </div>
   </div>
 
-  <div class="page-header">
-    <h1 class="page-header">Neues Ereignis melden</h1>
-  </div>
-
-  <form ng-submit="addEvent()">
-    <!-- Eventtype -->
-    <div class="row">
-      <div class="col-xs-11">
-        <div class="form-group">
-          <label>Ereignis</label>
-          <select ng-model="newEvent.type" class="form-control" required>
-            <option value="">Bitte wählen...</option>
-            <option value="personenschaden">Personenschaden</option>
-            <option value="feuer">Feuer</option>
-            <option value="unfall">Unfall/Panne</option>
-            <option value="handwerk">Handwerk</option>
-          </select>
+  <div class="eventformInner">
+    <div class="quickevents">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('personenschaden')" class="btn btn-danger"><img class="emergencybtn" src="images/buttons/herz.png"></button></div>
+          <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('feuer')" class="btn btn-warning"><img class="emergencybtn" src="images/buttons/feuer.png"></button></div>
+          <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('unfall')" class="btn btn-success"><img class="emergencybtn" src="images/buttons/unfall.png"></button></div>
+          <div class="col-sm-3 col-xs-3 col-md-3 text-center emergencybtn"><button type="button" ng-click="quickEvent('handwerk')" class="btn btn-primary"><img class="emergencybtn" src="images/buttons/hammer.png"></button></div>
         </div>
       </div>
-      <div class="col-xs-1">
-        <label>Pos.</label>
-        <button type="button" ng-click="setMyMarker()" class="btn btn-default glyphicon glyphicon-map-marker"></button>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="page-header">
+            <h1 class="page-header">Neues Ereignis melden</h1>
+          </div>
+
+          <form ng-submit="addEvent()">
+            <!-- Eventtype -->
+            <div class="row">
+              <div class="col-xs-9 col-sm-10">
+                <div class="form-group">
+                  <label>Ereignis</label>
+                  <select ng-model="newEvent.type" class="form-control" required>
+                    <option value="">Bitte wählen...</option>
+                    <option value="personenschaden">Personenschaden</option>
+                    <option value="feuer">Feuer</option>
+                    <option value="unfall">Unfall/Panne</option>
+                    <option value="handwerk">Handwerk</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-3 col-sm-2 text-center">
+                <label>Pos.</label>
+                <button type="button" ng-click="setMyMarker()" class="btn btn-default glyphicon glyphicon-map-marker"></button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Beschreibung</label>
+              <textarea id="additional" class="form-control" rows="4" ng-model="newEvent.additional" placeholder="Gib potentiellen Helfern zusätzliche Informationen..." required></textarea>
+            </div>
+
+            <!-- abort and submit buttons -->
+            <div class="row">
+              <div class="col-sm-2 col-md-2"></div>
+              <div class="col-sm-4 col-xs-6 col-md-4 text-center"><button type="button" class="btn btn-default btn-block" ng-click="cancel()">Abbrechen</button></div>
+              <div class="col-sm-4 col-xs-6 col-md-4 text-center"><button type="submit" class="btn btn-danger btn-block">Ereignis melden</button></div>
+              <div class="col-sm-2 col-md-2"></div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <label>Beschreibung</label>
-      <textarea id="additional" class="form-control" rows="4" ng-model="newEvent.additional" placeholder="Gib potentiellen Helfern zusätzliche Informationen..." required></textarea>
-    </div>
-
-    <!-- abort and submit buttons -->
-    <div class="row">
-      <div class="col-sm-2 col-xs-2 col-md-2"></div>
-      <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="button" class="btn btn-default btn-block" ng-click="cancel()">Abbrechen</button></div>
-      <div class="col-sm-4 col-xs-4 col-md-4 text-center"><button type="submit" class="btn btn-danger btn-block">Ereignis melden</button></div>
-      <div class="col-sm-2 col-xs-2 col-md-2"></div>
-    </div>
-  </form>
+  </div>
 </div>
 <!-- end gridlayout -->
