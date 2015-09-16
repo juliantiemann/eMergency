@@ -10,30 +10,26 @@
 angular.module('eMergencyApp')
   .controller('ProfileCtrl', function ($scope, userService, Notification) {
     $scope.userService = userService;
-    $scope.user = {
-      name: userService.user.name,
-      username: userService.user.username,
-      Skills: userService.user.Skills
-    };
+    $scope.password = {};
 
-
-    $scope.editUser = function() {
-      /*var newEvent = {
-        type: eventService.eventTypes[$scope.newEvent.type],
-        additional: $scope.newEvent.additional
-      };
-      eventService.add(newEvent)
+    var update = function() {
+      debugger
+      userService.update(userService.user)
         .then(function() {
-          $scope.newEvent = {};
-          Notification.success('Alarm abgeschickt');
+          Notification.success('Profil gespeichert');
         });
-      */
-      Notification.success('Profil bearbeitet');
-      $scope.userService = userService;
     }
 
-    $scope.cancel = function() {
-      debugger
-      $scope.userService = userService;
+    $scope.editUser = function() {
+      if( $scope.password.length ) {
+        if( $scope.password.new == $scope.password.confirm ) {
+          userService.user.password = $scope.password.new;
+          update();
+        } else {
+          Notification.error('Passwörter stimmen nicht überein');
+        }
+      } else {
+        update();
+      }
     }
   });
