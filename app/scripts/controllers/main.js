@@ -25,13 +25,12 @@ angular.module('eMergencyApp')
         .then(function(response){
           angular.forEach(response, function(event) {
             $scope.events.push(event);
+            if(event.location && event.location.latitude && event.location.longitude) {
+              $scope.map.markers.push(createMarker(event));
+            }
           });
         });
     }
-
-    $scope.$watch('selected', function(fac) {
-       $scope.$broadcast("rowSelected", fac);
-    });
 
     eventService.load(new Date().getTime(), 5)
       .then(function(response) {
