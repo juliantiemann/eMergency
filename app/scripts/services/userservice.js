@@ -94,6 +94,21 @@ angular.module('eMergencyApp')
       return deferred.promise;
     };
 
+    this.update = function(user) {
+      return $q(function(resolve, reject) {
+        user._metadata.writeAccess();
+        user.save()
+          .then(
+            function(success){
+              resolve(success);
+            },
+            function(error) {
+              reject(error);
+            }
+          );
+      });
+    };
+
     $db.ready(function() {
       _this.getCurrentUser();
       $rootScope.$apply();
