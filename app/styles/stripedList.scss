@@ -1,8 +1,14 @@
 .stripedList {
   li {
+    cursor: pointer;
     padding-top: 10px;
     padding-bottom: 10px;
-
+    &:hover {
+      background: #ececec !important;
+      div {
+        text-decoration:underline;
+      }
+    }
     &:nth-child(odd) {
       background-color: #f9f9f9;
       color: Gray;

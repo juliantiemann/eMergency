@@ -9,7 +9,7 @@
  */
 angular.module('eMergencyApp')
   .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService, Notification) {
-    var createMarker, createMap, userPosition;
+    var createMarker, createMap, userPosition, newEventHandler, newLocationHandler;
     $scope.userService = userService;
     $scope.events = [];
     $scope.map = {markers:[], myMarker:[]};
@@ -43,7 +43,8 @@ angular.module('eMergencyApp')
           }
         });
 
-        eventService.subscribe(function(e, entry) {
+        eventService.subscribe();
+        newEventHandler = $rootScope.$on('new-event', function(e, entry) {
           $scope.events.unshift(entry);
           if(entry.location && entry.location.latitude && entry.location.longitude) {
             $scope.map.markers.push(createMarker(entry));
@@ -87,9 +88,14 @@ angular.module('eMergencyApp')
       return marker;
     };
 
-    $rootScope.$on('new-location', function() {
+    newLocationHandler = $rootScope.$on('new-location', function() {
       createMap(geolocationService.location);
     });
 
     createMap(geolocationService.location);
+
+    $scope.$on('$destroy', function() {
+      newEventHandler();
+      newLocationHandler();
+    });
   });

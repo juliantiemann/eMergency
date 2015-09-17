@@ -72,10 +72,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .eventTable {
   position: absolute;
-  left: 0;
-  right: 0;
+  right: 15px;
   bottom: 75px;
   top: auto;
+  max-width: 350px;
+  overflow-y: scroll;
   div {
     height: 100%;
     ul {

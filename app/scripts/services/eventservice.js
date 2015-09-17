@@ -11,6 +11,7 @@ angular.module('eMergencyApp')
   .service('eventService', function ($rootScope, $q, $db, userService, geolocationService) {
     var _this = this;
     this.eventTypes = {};
+    this.subscribed = false;
     /**
      * Return the last events
      * @return {array} The last events
@@ -100,21 +101,24 @@ angular.module('eMergencyApp')
      * @param {callback} function that is called, when a new object is added to the stream
      */
     this.subscribe = function(callback) {
-      var handler = $rootScope.$on('notifying-service-event', callback);
-      $db.ready()
-        .then(function() {
-          var stream = $db.Event.find().stream(false);
-          stream.on("all", function(e) {
-            var event = e.data;
-            if(event.type !== null) {
-              event.type.load().then(function(type) {
-                event.type = type;
-                $rootScope.$emit('notifying-service-event', event);
-                $rootScope.$apply();
-              });
-            }
+      if(!_this.subscribed) {
+        var handler = $rootScope.$on('new-event', callback);
+        $db.ready()
+          .then(function() {
+            var stream = $db.Event.find().stream(false);
+            stream.on("all", function(e) {
+              var event = e.data;
+              if(event.type !== null) {
+                event.type.load().then(function(type) {
+                  event.type = type;
+                  $rootScope.$emit('new-event', event);
+                  $rootScope.$apply();
+                });
+              }
+            });
           });
-        });
+        _this.subscribed = true;
+      }
     };
 
     this.getEventtypes = function() {

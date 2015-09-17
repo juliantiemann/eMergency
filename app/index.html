@@ -67,8 +67,7 @@
                 <span class="badge badge-notify">{{notifications.length}}</span>
                 <ul class="dropdown-menu">
                   <li ng-repeat="notification in notifications">
-                    <a href="" ng-click="go('/event/{{ notication.eventId }}')">
-                    {{notification.title}}
+                    <a ng-href="#/event/{{ notification.event_id }}">{{notification.title}}</a>
                   </li>
                 </ul>
               </li>
