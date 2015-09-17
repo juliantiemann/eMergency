@@ -1,28 +1,36 @@
-<div class="row">
-  <div class="col-md-8">
-    <div id="map_canvas">
-      <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-        <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
-            <ui-gmap-windows ng-cloak>
-                <div ng-non-bindable>
-                  {{ content }}
-                </div>
-            </ui-gmap-windows>
-        </ui-gmap-markers>
-        <ui-gmap-marker idkey="map.myMarker.id" coords="map.myMarker" options="map.myMarker.options">
-        </ui-gmap-marker>
-      </ui-gmap-google-map>
-    </div>
-  </div>
-  <div class="col-md-4  ">
-    <div class="eventtabelle hidden-xs">
-      <div ng-include="'views/eventoverview.html'"></div>
-    </div>
-  </div>
+<div id="map_canvas">
+  <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+    <ui-gmap-markers idkey='id' models="map.markers" doCluster="false" coords="'self'" icon="'icon'">
+        <ui-gmap-windows ng-cloak>
+            <div ng-non-bindable>
+              <h4>{{ content.bezeichnung | ucfirst }}</h4>
+              <p>{{ content.additional }}</p>
+              <p><a href="#/event/{{ id }}">Zum Event</a></p>
+            </div>
+        </ui-gmap-windows>
+    </ui-gmap-markers>
+    <ui-gmap-marker idkey="map.myMarker.id" coords="map.myMarker" options="map.myMarker.options">
+    </ui-gmap-marker>
+  </ui-gmap-google-map>
 </div>
 
-<hr />
+<div class="onMap welcome" ng-if="userService.guest">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h1>Jetzt mitmachen!</h1>
+        <p>Bla Bla Bla - ein Haufen interessanter Kram über eMergency und ne Aufforderung doch auch endlich mal mitzumachen</p>
+        <br />
+        <a href="#/register" class="btn btn-success">Jetzt mitmachen</a>
+        <br />
+      </div>
+    </div>
+  </div>
+  <br />
+</div>
+
+<div abs-rel-to=".welcome" data-margin="30" class="eventTable" ng-include="'views/eventoverview.html'"></div>
 
 <div class="Eventformular">
-  <div ng-include="'views/eventcreation.html'"></div>
+  <div ng-include="'views/eventform.html'"></div>
 </div>

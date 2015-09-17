@@ -1,0 +1,111 @@
+<div class="container" ng-controller="ProfileCtrl">
+    <form name="profileForm" ng-submit="editUser()" ng-if="userService.user.username">
+      <div class="page-header">
+        <h1 class="page-header">Profil bearbeiten</h1>
+      </div>
+
+      <!--Name-->
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" ng-model="userService.user.name" placeholder="Bitte gib einen Namen ein..."></input>
+              </div>
+          </div>
+      </div>
+      <!--E-Mail-->
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="form-group">
+                  <label>E-Mail / Anmeldung</label>
+                  <input type="text" class="form-control" ng-model="userService.user.username" placeholder="Bitte gib einen Namen ein..."></input>
+              </div>
+          </div>
+      </div>
+      <!--Passwort-->
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="form-group">
+                  <label>Naues Passwort</label>
+                  <input type="password" class="password form-control" ng-model="password.new" placeholder="Bitte gib einen neues Passwort ein..."/>
+              </div>
+          </div>
+      </div>
+      <!--Passwort wiederholen-->
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="form-group">
+                  <label>Neues Passwort wiederholen</label>
+                  <input type="password" class="password_confirm form-control" ng-model="password.confirm" placeholder="Bitte wiederhole dein neues Passwort..." name="confirmPassword" match="profile.newPassword"/>
+              </div>
+              <div class="alert alert-danger" role="alert"  data-ng-show="profileForm.confirmPassword.$error.match">
+                Passwörter stimmen nicht überein!
+              </div>
+          </div>
+      </div>
+      <!--gravatar-->
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">Gravatar</div>
+                <div class="panel-body">
+                  <div class="col-xs-5">
+                    <input type="checkbox" ng-model="userService.user.gravatar" /> Gravatar verwenden?
+                  </div>
+                  <div class="col-xs-5">
+                    <img gravatar-src="userService.user.username" gravatar-size="200" ng-if="userService.user.gravatar">
+                  </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!--Skills-->
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">Deine Kentnisse</div>
+                <div class="panel-body">
+                  <input type="checkbox" ng-model="userService.user.Skills.personenschaden" /> Erste Hilfe<br/>
+                  <input type="checkbox" ng-model="userService.user.Skills.feuer" /> Feuerwehr<br/>
+                  <input type="checkbox" ng-model="userService.user.Skills.unfall" /> Unfallhelfer / -in<br/>
+                  <input type="checkbox" ng-model="userService.user.Skills.handwerk" /> Handwerker / -in<br/>
+                </div>
+              </div>
+          </div>
+      </div>
+<!--
+      <h3>Deine Skills</h3>
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">Medezinische Kentnisse</div>
+          <div class="panel-body">
+            <input type="checkbox" ng-model="userService.user.Skills.arzt" /> Arzt / -in<br/>
+            <input type="checkbox" ng-model="userService.user.Skills.pfleger" /> Krankenpfleger / -in<br/>
+            <input type="checkbox" ng-model="userService.user.Skills.ersthelfer" /> Ersthelfer / -in<br/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">Handwerkliche Kentnisse</div>
+          <div class="panel-body">
+            <input type="checkbox" ng-model="userService.user.Skills.holz" /> Holzverarbeitung<br/>
+            <input type="checkbox" ng-model="userService.user.Skills.gws" /> Sanitär<br/>
+            <input type="checkbox" ng-model="userService.user.Skills.maler" /> Malerarbeiten<br/>
+            <input type="checkbox" ng-model="userService.user.Skills.bau" /> Bau<br/>
+          </div>
+        </div>
+      </div>
+-->
+      <div class="row">
+        <div class="col-xs-12 text-center"><button type="submit" class="btn btn-primary btn-block">Speichern</button></div>
+      </div>
+
+    </form>
+</div>
+
+<div class="container-fluid" ng-if="userService.guest">
+  <div class="page-header">
+    <h1 class="page-header">Du musst eingeloogt sein, um dein Profil zu bearbeiten</h1>
+  </div>
+</div>

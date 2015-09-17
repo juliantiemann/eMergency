@@ -42,6 +42,9 @@ module.exports = function(config) {
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
       'bower_components/angular-scrollable-table/angular-scrollable-table.js',
+      'bower_components/angular-validation-match/dist/angular-validation-match.min.js',
+      'bower_components/angular-ui-notification/dist/angular-ui-notification.min.js',
+      'bower_components/angular-gravatar/build/angular-gravatar.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

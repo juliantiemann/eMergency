@@ -1,0 +1,45 @@
+.stripedList {
+  li {
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    &:hover {
+      background: #ececec !important;
+      div {
+        text-decoration:underline;
+      }
+    }
+    &:nth-child(odd) {
+      background-color: #f9f9f9;
+      color: Gray;
+    }
+    &:nth-child(even) {
+      background-color: White;
+      color: Gray;
+    }
+
+    .icon {
+      margin-top: 3px;
+    };
+
+    .date {
+      font-style:oblique;
+      font-size: 14px;
+      margin-bottom: 5px;
+    };
+
+    .additional {
+      margin-top: 5px;
+      color: #444;
+    }
+  }
+}
+
+.stripedList {
+  list-style-type:none;
+  padding-left: 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  margin-bottom: 0;
+}
