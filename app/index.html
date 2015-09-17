@@ -58,6 +58,22 @@
               <li><img gravatar-src="userService.user.username" gravatar-size="50"></li>
             </ul>
 
+            <!--Notifications-->
+            <ul class="nav navbar-nav navbar-right" ng-if="notifications.length">
+              <li class="dropdown dropdown-notify">
+                <a href="" class="dropdown-toggle dropdown-notify" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-comment"></span>
+                </a>
+                <span class="badge badge-notify">{{notifications.length}}</span>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="notification in notifications">
+                    <a href="" ng-click="go('/event/{{ notication.eventId }}')">
+                    {{notification.title}}
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
             <ul class="nav navbar-form navbar-right" ng-if="userService.guest">
               <a ng-href="#/register" class="btn btn-success">Jetzt Mithelfen</a>
             </ul>

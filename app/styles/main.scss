@@ -40,6 +40,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   text-align: center;
 }
 
+<<<<<<< HEAD
 #map_canvas {
   position: absolute;
   bottom: 0;
@@ -132,6 +133,29 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     }
   }
 }
+
+.row #eventdetails {
+  label {
+    margin-top: 13px;
+  }
+  textarea{
+    resize: none;
+  }
+}
+
 .ng-invalid{
     border-color: red;
+}
+
+.badge-notify {
+  background: red;
+  position: relative;
+  top: -65px;
+  left: 25px;
+  font-size: 8px;
+}
+.dropdown-notify {
+  padding: 5px !important;
+  height: 50px;
+  font-size: 30px;
 }
