@@ -91,6 +91,7 @@ ui-gmap-google-map {
 }
 
 #eventformOuter {
+  z-index: 200;
   background: #eee;
   position: fixed;
   bottom: 0;
@@ -122,6 +123,22 @@ ui-gmap-google-map {
       overflow: hidden;
       cursor: pointer;
       text-decoration: none !important;
+    }
+  }
+  @media only screen and (max-width: 479px) {
+    .eventformToggleOuter {
+      height: 40px;
+      top: -40px;
+      .eventformToggleButton {
+        width: 90px;
+        height: 90px;
+        top: -45px;
+        border: 6px solid rgba(238,238,238,1);
+        left: 50%;
+        margin-left: -45px;
+        font-size: 90px;
+        line-height: 60px;
+      }
     }
   }
   .eventformInner {
