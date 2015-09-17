@@ -21,19 +21,18 @@ angular.module('eMergencyApp')
 
     $scope.paginateEvents = function() {
       var lastTimestamp = new Date($scope.events[$scope.events.length-1].date).getTime();
-      eventService.load(lastTimestamp, 5)
+      eventService.load(lastTimestamp, 10)
         .then(function(response){
           angular.forEach(response, function(event) {
             $scope.events.push(event);
+            if(event.location && event.location.latitude && event.location.longitude) {
+              $scope.map.markers.push(createMarker(event));
+            }
           });
         });
     }
 
-    $scope.$watch('selected', function(fac) {
-       $scope.$broadcast("rowSelected", fac);
-    });
-
-    eventService.load(new Date().getTime(), 5)
+    eventService.load(new Date().getTime(), 10)
       .then(function(response) {
         //laden aller Events aus der DB
         $scope.events = response;

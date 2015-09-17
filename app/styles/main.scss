@@ -3,6 +3,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 @import "scrollableTable.scss";
+@import "stripedList.scss";
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
@@ -11,6 +12,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .header {
   z-index: 100;
   position: relative;
+  .navbar {
+    margin-bottom: 0px;
+  }
 }
 
 .navbar-emergency {
@@ -51,6 +55,33 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
       height: 100%;
       .angular-google-map-container {
           height: 100%;
+      }
+    }
+  }
+}
+
+.onMap {
+  position: relative;
+  z-index:100;
+}
+
+.welcome {
+  background: white;
+  margin-bottom: 15px;
+}
+
+.eventTable {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 75px;
+  top: auto;
+  div {
+    height: 100%;
+    ul {
+      height: 100%;
+      div {
+        height: auto;
       }
     }
   }
@@ -100,4 +131,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
       background: rgba(238,238,238,1);
     }
   }
+}
+.ng-invalid{
+    border-color: red;
 }

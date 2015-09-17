@@ -24,7 +24,9 @@ angular
     'infinite-scroll',
     'scrollable-table',
     'uiGmapgoogle-maps',
-    'ui-notification'
+    'validation.match',
+    'ui-notification',
+    'ui.gravatar'
   ])
   .config(function ($routeProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider) {
     $routeProvider
@@ -59,6 +61,10 @@ angular
             return $db.ready();
           }
         }
+      })
+      .when('/profile/', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
       })
       .otherwise({
         redirectTo: '/'

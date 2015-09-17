@@ -24,6 +24,7 @@ angular.module('eMergencyApp')
         this.user = {};
         this.guest = true;
       }
+      $rootScope.$emit("userstate-change");
     };
     /**
      * registers a new User in baqend
@@ -92,6 +93,21 @@ angular.module('eMergencyApp')
           }
         );
       return deferred.promise;
+    };
+
+    this.update = function(user) {
+      return $q(function(resolve, reject) {
+        user._metadata.writeAccess();
+        user.save()
+          .then(
+            function(success){
+              resolve(success);
+            },
+            function(error) {
+              reject(error);
+            }
+          );
+      });
     };
 
     $db.ready(function() {
