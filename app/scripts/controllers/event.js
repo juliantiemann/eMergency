@@ -14,6 +14,7 @@ angular.module('eMergencyApp')
     $scope.event = {};
     $scope.comments = [];
     $scope.comment = {};
+    $scope.userService = userService;
 
     $scope.update = function(event) {
       eventService.update(event)

@@ -9,7 +9,7 @@
  */
 angular.module('eMergencyApp')
   .controller('MainCtrl', function ($scope, $rootScope, $db, $location, userService, eventService, geolocationService, Notification) {
-    var createMarker, createMap, userPosition;
+    var createMarker, createMap, userPosition, newEventHandler, newLocationHandler;
     $scope.userService = userService;
     $scope.events = [];
     $scope.map = {markers:[], myMarker:[]};
@@ -43,7 +43,8 @@ angular.module('eMergencyApp')
           }
         });
 
-        eventService.subscribe(function(e, entry) {
+        eventService.subscribe();
+        newEventHandler = $rootScope.$on('new-event', function(e, entry) {
           $scope.events.unshift(entry);
           if(entry.location && entry.location.latitude && entry.location.longitude) {
             $scope.map.markers.push(createMarker(entry));
@@ -58,7 +59,7 @@ angular.module('eMergencyApp')
     createMap = function(location) {
       if(location) {
         $scope.map.center = {latitude: location.lat, longitude: location.long};
-        $scope.map.zoom = 12;
+        $scope.map.zoom = 14;
         $scope.map.options = {scrollwheel: false};
         userPosition(geolocationService.location);
       }
@@ -81,15 +82,23 @@ angular.module('eMergencyApp')
         latitude: entry.location.latitude,
         longitude: entry.location.longitude,
         icon: 'images/map/' + entry.type.bezeichnung + '.png',
-        content: entry.type.bezeichnung + '<br />' + entry.additional,
+        content: {
+          bezeichnung: entry.type.bezeichnung,
+          additional: entry.additional
+        },
         showWindow: false
       };
       return marker;
     };
 
-    $rootScope.$on('new-location', function() {
+    newLocationHandler = $rootScope.$on('new-location', function() {
       createMap(geolocationService.location);
     });
 
     createMap(geolocationService.location);
+
+    $scope.$on('$destroy', function() {
+      newEventHandler();
+      newLocationHandler();
+    });
   });

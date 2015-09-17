@@ -67,8 +67,7 @@
                 <span class="badge badge-notify">{{notifications.length}}</span>
                 <ul class="dropdown-menu">
                   <li ng-repeat="notification in notifications">
-                    <a href="" ng-click="go('/event/{{ notication.eventId }}')">
-                    {{notification.title}}
+                    <a ng-href="#/event/{{ notification.event_id }}">{{notification.title | ucfirst}}</a>
                   </li>
                 </ul>
               </li>
@@ -140,6 +139,7 @@
         <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/services/commentservice.js"></script>
         <script src="scripts/directives/absrelto.js"></script>
+        <script src="scripts/filters/ucfirst.js"></script>
         <!-- endbuild -->
 </body>
 </html>
