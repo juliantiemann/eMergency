@@ -107,13 +107,15 @@ angular.module('eMergencyApp')
           .then(function() {
             var stream = $db.Event.find().stream(false);
             stream.on("all", function(e) {
-              var event = e.data;
-              if(event.type !== null) {
-                event.type.load().then(function(type) {
-                  event.type = type;
-                  $rootScope.$emit('new-event', event);
-                  $rootScope.$apply();
-                });
+              if(e.type == "add") {
+                var event = e.data;
+                if(event.type !== null) {
+                  event.type.load().then(function(type) {
+                    event.type = type;
+                    $rootScope.$emit('new-event', event);
+                    $rootScope.$apply();
+                  });
+                }
               }
             });
           });
