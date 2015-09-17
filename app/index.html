@@ -14,11 +14,6 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <style type="text/css">
-        .angular-google-map-container {
-            height: 400px;
-        }
-    </style>
   </head>
   <body ng-app="eMergencyApp" ng-cloak>
     <!--[if lte IE 8]>
@@ -88,9 +83,7 @@
       </div>
     </div>
 
-    <div class="container">
-      <div ng-view=""></div>
-    </div>
+    <div ng-view=""></div>
 
     <br />
 
@@ -146,6 +139,7 @@
         <script src="scripts/controllers/eventform.js"></script>
         <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/services/commentservice.js"></script>
+        <script src="scripts/directives/absrelto.js"></script>
         <!-- endbuild -->
 </body>
 </html>

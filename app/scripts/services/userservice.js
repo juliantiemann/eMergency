@@ -24,6 +24,7 @@ angular.module('eMergencyApp')
         this.user = {};
         this.guest = true;
       }
+      $rootScope.$emit("userstate-change");
     };
     /**
      * registers a new User in baqend
