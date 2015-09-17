@@ -25,15 +25,18 @@ angular.module('eMergencyApp')
         .resultList()
           .then(
             function(response) {
-              var typesLoaded = [];
+              var deeploading = [];
               angular.forEach(response, function(event, k) {
                 if(event.type !== null) {
-                  typesLoaded.push(event.type.load().then(function(type) {
+                  deeploading.push(event.type.load().then(function(type) {
                     event.type = type;
                   }));
                 }
+                deeploading.push(event.user.load().then(function(user) {
+                  event.user = user;
+                }));
               });
-              $q.all(typesLoaded).then(function() {
+              $q.all(deeploading).then(function() {
                 deferred.resolve(response);
               });
             },

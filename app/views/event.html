@@ -20,11 +20,14 @@
           <option value="handwerk">Handwerk</option>
         </select>
         <label for="user">gemeldet von</label>
-        <input ng-model="event.user.name" class="form-control" id="user" disabled="true"></input>
+        <input ng-model="event.user.username" class="form-control" id="user" disabled="true"></input>
         <label for="hinweise">Hinweise</label>
         <textarea rows="4" ng-model="event.additional" class="form-control" id="hinweise" disabled="true"></textarea>
-        <input type="checkbox" ng-model="event.done" ng-change="update(event)" id="done"></input>
+
+        <input ng-if="event.user.id == userService.user.id" type="checkbox" ng-model="event.done" ng-change="update(event)" id="done"></input>
+        <input ng-if="event.user.id != userService.user.id" type="checkbox" ng-model="event.done" disabled="disabled" id="done"></input>
         <label for="done">erledigt</label>
+
       </div>
     </div>
   </div>
