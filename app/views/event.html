@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" ng-if="!userService.guest">
     <div class="col-xs-12">
       <form ng-submit="addComment(comment)">
         <div class="form-group">
@@ -50,6 +50,11 @@
         </div>
         <button type="submit" class="btn btn-default">Kommentieren</button>
       </form>
+    </div>
+  </div>
+  <div class="row" ng-if="userService.guest">
+    <div class="col-xs-12 text-center">
+      <p><a ng-href="#/login">Einloggen</a> oder <a ng-href="#/register">Registrieren</a> um Kommentare abzugeben</p>
     </div>
   </div>
 </div>
