@@ -31,6 +31,6 @@
 
 <div abs-rel-to=".welcome" data-margin="30" class="eventTable hidden-xs" ng-include="'views/eventoverview.html'"></div>
 
-<div class="Eventformular">
+<div class="Eventformular" ng-if="!userService.guest">
   <div ng-include="'views/eventform.html'"></div>
 </div>

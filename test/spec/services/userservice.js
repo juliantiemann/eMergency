@@ -24,33 +24,33 @@ describe('Service: userService', function () {
     });
   });
 
-  it('should get the currently logged in user', function(done) {
-    done();
-    // inject(function($db) {
-    //   $db.User.register(newUser, "angular-test")
-    //     .then(function(user) {
-    //       userService.getCurrentUser()
-    //       expect(userService.user.username).toBe("angular-test");
-    //       done();
-    //     }, function() {
-    //       done.fail("user couldn't be created");
-    //     });
-    // })
-  });
+  // it('should get the currently logged in user', function(done) {
+  //   done();
+  //   // inject(function($db) {
+  //   //   $db.User.register(newUser, "angular-test")
+  //   //     .then(function(user) {
+  //   //       userService.getCurrentUser()
+  //   //       expect(userService.user.username).toBe("angular-test");
+  //   //       done();
+  //   //     }, function() {
+  //   //       done.fail("user couldn't be created");
+  //   //     });
+  //   // })
+  // });
 
-  it('should register and loggin a new user', function(done) {
-    done();
-    // inject(function($rootScope, $db, $q) {
-    //   userService.register(newUser, "angular-test")
-    //     .then(function() {
-    //       expect($db.User.me.username).toBe("angular-test");
-    //       done();
-    //     });
-    // });
-  });
+  // it('should register and loggin a new user', function(done) {
+  //   done();
+  //   // inject(function($rootScope, $db, $q) {
+  //   //   userService.register(newUser, "angular-test")
+  //   //     .then(function() {
+  //   //       expect($db.User.me.username).toBe("angular-test");
+  //   //       done();
+  //   //     });
+  //   // });
+  // });
 
-  afterEach(function(done) {
-    done();
+  // afterEach(function(done) {
+  //   done();
     // inject(function ($db) {
     //   $db.User.logout()
     //     .then(function() {
@@ -81,6 +81,6 @@ describe('Service: userService', function () {
     //         });
     //     });
     // })
-  });
+  // });
 
 });
